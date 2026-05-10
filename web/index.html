@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RedMansionMind</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="workspace">
+        <aside class="sidebar">
+          <div>
+            <p class="kicker">RedMansionMind</p>
+            <h1>红楼梦哲学阐释</h1>
+          </div>
+
+          <div class="control">
+            <span>视角</span>
+            <div class="segments" role="tablist" aria-label="哲学视角">
+              <button class="active" data-perspective="综合">综合</button>
+              <button data-perspective="儒家">儒家</button>
+              <button data-perspective="道家">道家</button>
+              <button data-perspective="佛教">佛教</button>
+            </div>
+          </div>
+
+          <label class="llm-toggle">
+            <input id="use-llm" type="checkbox" />
+            <span>启用 LLM 生成</span>
+          </label>
+
+          <div class="examples">
+            <span>样例问题</span>
+            <button data-question="贾宝玉为什么厌恶仕途经济？">贾宝玉为什么厌恶仕途经济？</button>
+            <button data-question="太虚幻境体现了什么佛教思想？">太虚幻境体现了什么佛教思想？</button>
+            <button data-question="薛宝钗更接近儒家伦理吗？">薛宝钗更接近儒家伦理吗？</button>
+            <button data-question="好了歌如何表现无常和空？">好了歌如何表现无常和空？</button>
+          </div>
+        </aside>
+
+        <section class="main-panel">
+          <form id="ask-form" class="ask-box">
+            <textarea id="question" rows="3" placeholder="输入一个关于《红楼梦》和中国哲学的问题">贾宝玉为什么厌恶仕途经济？</textarea>
+            <button type="submit">生成阐释</button>
+          </form>
+
+          <section id="answer" class="answer">
+            <div class="empty">正在等待问题。</div>
+          </section>
+        </section>
+      </section>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+{"id":"confucian_li","tradition":"儒家","name":"礼","definition":"礼强调社会角色、家族秩序、分寸与规范，是维系伦理共同体的重要原则。","keywords":["礼","礼教","秩序","家族","父权","孝","规范"],"related_themes":["礼教","家族秩序","父权"]}
+{"id":"confucian_career","tradition":"儒家","name":"功名责任","definition":"士人通过读书、仕进和承担公共责任实现家族期待与社会价值。","keywords":["功名","仕途","经济","入世","责任","贾政"],"related_themes":["反功名","入世","父权"]}
+{"id":"confucian_renqing","tradition":"儒家","name":"人情练达","definition":"儒家入世传统重视在人伦关系中理解分寸、义理与实践智慧。","keywords":["人情","世事","学问","文章","练达"],"related_themes":["世情","人情","入世"]}
+{"id":"daoist_ziran","tradition":"道家","name":"自然","definition":"自然强调顺应本真状态，反对过度人为规范对生命的拘束。","keywords":["自然","真性情","本真","无为","自由","逍遥"],"related_themes":["真性情","反礼教","有/无"]}
+{"id":"daoist_wuwei","tradition":"道家","name":"无为","definition":"无为不是无所作为，而是不以强制性的功利意志扭曲事物自身的生长。","keywords":["无为","有无","功利","浊物","不争"],"related_themes":["有/无","反功名","空间秩序"]}
+{"id":"daoist_qiwulun","tradition":"道家","name":"齐物","definition":"齐物倾向于消解世俗分别，重新理解贵贱、真假、得失的相对性。","keywords":["真","假","得失","分别","梦","幻"],"related_themes":["真/假","梦","幻"]}
+{"id":"buddhism_sunyata","tradition":"佛教","name":"空","definition":"空指诸法无固定自性，万物由因缘和合而生，因此不应执着为恒常实体。","keywords":["空","色空","有无","悟空","无可云证"],"related_themes":["空","色","悟","有/无"]}
+{"id":"buddhism_impermanence","tradition":"佛教","name":"无常","definition":"无常强调世间诸法迁流变化，繁华、青春、权势和生命都不能恒久。","keywords":["无常","盛衰","飘零","白茫茫","梦","幻"],"related_themes":["盛衰无常","生命意识","无常"]}
+{"id":"buddhism_karma","tradition":"佛教","name":"因果","definition":"因果观强调行为、欲望与后果之间的连续关系，常用于解释报应和命运。","keywords":["因果","报应","欲望","机心","祸患"],"related_themes":["因果","报应","欲望"]}
+{"id":"buddhism_attachment","tradition":"佛教","name":"执着","definition":"执着是对情欲、名物、自我或判断的固着，佛教修行常以破执为要。","keywords":["执着","情","证","悟","痴","挂碍"],"related_themes":["情","痴","禅","悟"]}
