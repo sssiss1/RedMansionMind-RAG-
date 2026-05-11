@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
@@ -56,8 +57,10 @@ class Handler(SimpleHTTPRequestHandler):
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run the RedMansionMind local server.")
-    parser.add_argument("--host", default="127.0.0.1")
-    parser.add_argument("--port", type=int, default=8000)
+    default_host = "0.0.0.0" if os.environ.get("PORT") else "127.0.0.1"
+    default_port = int(os.environ.get("PORT", "8000"))
+    parser.add_argument("--host", default=default_host)
+    parser.add_argument("--port", type=int, default=default_port)
     args = parser.parse_args()
 
     try:
@@ -68,7 +71,7 @@ def main() -> None:
             return
         raise
 
-    print(f"RedMansionMind running at http://localhost:{args.port}")
+    print(f"RedMansionMind running on {args.host}:{args.port}")
     server.serve_forever()
 
 

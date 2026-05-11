@@ -20,6 +20,7 @@ RedMansionMind 是一个面向《红楼梦》哲学阐释的 LLM/RAG 项目。�
 - **Citation-grounded generation**: LLM 只基于检索出的 passage 和 concept 生成结构化回答
 - **Readable citation chips**: 将 `hlm_ch005_p005`、`buddhism_sunyata` 等内部 ID 展示为可读引用标签
 - **Beginner-friendly explanation**: 提供“科普解释”模式，把哲学术语讲成普通读者也能理解的说明
+- **Value quiz for engagement**: 提供“红楼价值观测试”，用轻量互动匹配用户更接近的《红楼梦》人物
 - **Evaluation set**: 内置 30 题评测集，自动评估章节召回和概念召回
 - **No dependency MVP**: 后端使用 Python 标准库即可运行；LLM 调用也是 OpenAI-compatible HTTP API
 
@@ -193,6 +194,35 @@ OPENAI_MODEL=deepseek-chat
 ```
 
 Then restart the server and turn on `启用 LLM 生成` in the web UI.
+
+## Deploy To Render
+
+This repository includes `render.yaml`, so it can be deployed as a Render Python Web Service.
+
+1. Push the latest branch to GitHub.
+2. Open [Render](https://render.com/), choose **New +** → **Blueprint**.
+3. Connect the GitHub repository.
+4. Select the repository and let Render read `render.yaml`.
+5. Add the secret environment variable:
+
+```text
+OPENAI_API_KEY=your_deepseek_api_key_here
+```
+
+The non-secret DeepSeek settings are already in `render.yaml`:
+
+```text
+OPENAI_BASE_URL=https://api.deepseek.com
+OPENAI_MODEL=deepseek-chat
+```
+
+Render will run:
+
+```bash
+python src/server.py --host 0.0.0.0
+```
+
+The app reads Render's `PORT` environment variable automatically.
 
 ## API
 

@@ -1,0 +1,2 @@
+# RedMansionMind currently uses only the Python standard library.
+# This file is intentionally present so Render detects the project as a Python service.
