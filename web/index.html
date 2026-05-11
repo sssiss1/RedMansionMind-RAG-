@@ -12,7 +12,8 @@
         <aside class="sidebar">
           <div>
             <p class="kicker">RedMansionMind</p>
-            <h1>红楼梦哲学阐释</h1>
+            <h1>红楼梦哲学笺</h1>
+            <p class="subtitle">以原文、义理与引文为线索，重读情与空。</p>
           </div>
 
           <div class="control">
@@ -42,7 +43,10 @@
         <section class="main-panel">
           <form id="ask-form" class="ask-box">
             <textarea id="question" rows="3" placeholder="输入一个关于《红楼梦》和中国哲学的问题">贾宝玉为什么厌恶仕途经济？</textarea>
-            <button type="submit">生成阐释</button>
+            <div class="action-stack">
+              <button type="submit" data-action="analyze">生成阐释</button>
+              <button type="button" id="explain-button" class="secondary-action">科普解释</button>
+            </div>
           </form>
 
           <section id="answer" class="answer">

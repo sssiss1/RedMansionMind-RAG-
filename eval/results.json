@@ -1,276 +1,10 @@
 {
   "summary": {
     "total": 30,
-    "top1_chapter_accuracy": 0.467,
-    "top4_chapter_accuracy": 0.667,
-    "concept_recall": 0.933,
-    "misses": [
-      {
-        "id": "q004",
-        "question": "贾宝玉为什么厌恶仕途经济？",
-        "expected_chapters": [
-          19
-        ],
-        "retrieved_chapters": [
-          32,
-          18,
-          63,
-          32
-        ],
-        "expected_concepts": [
-          "功名责任",
-          "礼"
-        ],
-        "retrieved_concepts": [
-          "功名责任",
-          "礼",
-          "自然"
-        ]
-      },
-      {
-        "id": "q005",
-        "question": "贾宝玉反感功名利禄体现了怎样的道家倾向？",
-        "expected_chapters": [
-          19
-        ],
-        "retrieved_chapters": [
-          8,
-          32,
-          50,
-          34
-        ],
-        "expected_concepts": [
-          "无为",
-          "自然"
-        ],
-        "retrieved_concepts": [
-          "无为",
-          "自然",
-          "齐物"
-        ]
-      },
-      {
-        "id": "q008",
-        "question": "宝黛共读西厢记体现了情与礼的什么冲突？",
-        "expected_chapters": [
-          23
-        ],
-        "retrieved_chapters": [
-          32,
-          68,
-          58,
-          53
-        ],
-        "expected_concepts": [
-          "礼"
-        ],
-        "retrieved_concepts": [
-          "人情练达",
-          "功名责任",
-          "礼"
-        ]
-      },
-      {
-        "id": "q009",
-        "question": "薛宝钗的随分从时可以如何从儒家伦理解释？",
-        "expected_chapters": [
-          8,
-          22
-        ],
-        "retrieved_chapters": [
-          31,
-          27,
-          4,
-          32
-        ],
-        "expected_concepts": [
-          "人情练达",
-          "礼"
-        ],
-        "retrieved_concepts": [
-          "人情练达",
-          "功名责任",
-          "礼"
-        ]
-      },
-      {
-        "id": "q010",
-        "question": "林黛玉初入贾府为何处处留心？",
-        "expected_chapters": [
-          3
-        ],
-        "retrieved_chapters": [
-          18,
-          25,
-          1,
-          53
-        ],
-        "expected_concepts": [
-          "礼"
-        ],
-        "retrieved_concepts": [
-          "人情练达",
-          "功名责任",
-          "礼"
-        ]
-      },
-      {
-        "id": "q012",
-        "question": "探春理家体现了什么治理观？",
-        "expected_chapters": [
-          55,
-          56
-        ],
-        "retrieved_chapters": [
-          70,
-          32,
-          77,
-          68
-        ],
-        "expected_concepts": [
-          "人情练达",
-          "礼"
-        ],
-        "retrieved_concepts": [
-          "人情练达",
-          "功名责任",
-          "礼"
-        ]
-      },
-      {
-        "id": "q015",
-        "question": "晴雯被逐体现了什么女性命运问题？",
-        "expected_chapters": [
-          74,
-          77
-        ],
-        "retrieved_chapters": [
-          39,
-          77,
-          79,
-          18
-        ],
-        "expected_concepts": [
-          "无常",
-          "礼"
-        ],
-        "retrieved_concepts": [
-          "因果"
-        ]
-      },
-      {
-        "id": "q016",
-        "question": "芙蓉女儿诔体现了贾宝玉怎样的真情？",
-        "expected_chapters": [
-          78
-        ],
-        "retrieved_chapters": [
-          78,
-          78,
-          56,
-          40
-        ],
-        "expected_concepts": [
-          "执着",
-          "无常"
-        ],
-        "retrieved_concepts": [
-          "功名责任",
-          "无为",
-          "自然"
-        ]
-      },
-      {
-        "id": "q017",
-        "question": "王熙凤的权术可以从因果角度怎样解释？",
-        "expected_chapters": [
-          12,
-          68,
-          69
-        ],
-        "retrieved_chapters": [
-          27,
-          7,
-          5,
-          13
-        ],
-        "expected_concepts": [
-          "因果",
-          "执着"
-        ],
-        "retrieved_concepts": [
-          "因果",
-          "执着",
-          "无常"
-        ]
-      },
-      {
-        "id": "q022",
-        "question": "宝玉挨打体现了礼教秩序和真情之间的什么冲突？",
-        "expected_chapters": [
-          33,
-          34
-        ],
-        "retrieved_chapters": [
-          58,
-          32,
-          68,
-          1
-        ],
-        "expected_concepts": [
-          "功名责任",
-          "礼"
-        ],
-        "retrieved_concepts": [
-          "功名责任",
-          "因果",
-          "礼"
-        ]
-      },
-      {
-        "id": "q025",
-        "question": "大观园诗社体现了怎样的自由与本真？",
-        "expected_chapters": [
-          37,
-          38
-        ],
-        "retrieved_chapters": [
-          34,
-          19,
-          11,
-          74
-        ],
-        "expected_concepts": [
-          "自然"
-        ],
-        "retrieved_concepts": [
-          "无为",
-          "自然",
-          "齐物"
-        ]
-      },
-      {
-        "id": "q026",
-        "question": "香菱学诗体现了什么生命自觉？",
-        "expected_chapters": [
-          48,
-          49
-        ],
-        "retrieved_chapters": [
-          62,
-          79,
-          34,
-          24
-        ],
-        "expected_concepts": [
-          "自然"
-        ],
-        "retrieved_concepts": [
-          "无常",
-          "自然"
-        ]
-      }
-    ]
+    "top1_chapter_accuracy": 0.867,
+    "top4_chapter_accuracy": 1.0,
+    "concept_recall": 1.0,
+    "misses": []
   },
   "rows": [
     {
@@ -283,8 +17,8 @@
       "retrieved_chapters": [
         5,
         5,
-        1,
-        1
+        5,
+        5
       ],
       "expected_concepts": [
         "执着",
@@ -292,9 +26,9 @@
         "空"
       ],
       "retrieved_concepts": [
-        "因果",
         "执着",
-        "无常"
+        "无常",
+        "梦幻泡影"
       ],
       "top1_hit": true,
       "topk_hit": true,
@@ -304,26 +38,26 @@
         {
           "id": "hlm_ch005_p005",
           "chapter": 5,
-          "score": 50.755,
+          "score": 93.141,
           "title": "游幻境指迷十二釵飲仙醪曲演紅樓夢"
         },
         {
           "id": "hlm_ch005_p004",
           "chapter": 5,
-          "score": 46.116,
+          "score": 90.503,
           "title": "游幻境指迷十二釵飲仙醪曲演紅樓夢"
         },
         {
-          "id": "hlm_ch001_p009",
-          "chapter": 1,
-          "score": 45.538,
-          "title": "甄士隱夢幻識通靈賈雨村風塵怀閨秀"
+          "id": "hlm_ch005_p006",
+          "chapter": 5,
+          "score": 57.901,
+          "title": "游幻境指迷十二釵飲仙醪曲演紅樓夢"
         },
         {
-          "id": "hlm_ch001_p010",
-          "chapter": 1,
-          "score": 45.211,
-          "title": "甄士隱夢幻識通靈賈雨村風塵怀閨秀"
+          "id": "hlm_ch005_p013",
+          "chapter": 5,
+          "score": 57.64,
+          "title": "游幻境指迷十二釵飲仙醪曲演紅樓夢"
         }
       ]
     },
@@ -339,13 +73,15 @@
         5,
         1,
         5,
-        12
+        5
       ],
       "expected_concepts": [
         "空",
         "齐物"
       ],
       "retrieved_concepts": [
+        "梦幻泡影",
+        "空",
         "齐物"
       ],
       "top1_hit": true,
@@ -356,26 +92,26 @@
         {
           "id": "hlm_ch005_p005",
           "chapter": 5,
-          "score": 189.817,
+          "score": 275.219,
           "title": "游幻境指迷十二釵飲仙醪曲演紅樓夢"
         },
         {
           "id": "hlm_ch001_p009",
           "chapter": 1,
-          "score": 187.887,
+          "score": 235.26,
           "title": "甄士隱夢幻識通靈賈雨村風塵怀閨秀"
         },
         {
           "id": "hlm_ch005_p004",
           "chapter": 5,
-          "score": 46.116,
+          "score": 116.503,
           "title": "游幻境指迷十二釵飲仙醪曲演紅樓夢"
         },
         {
-          "id": "hlm_ch012_p008",
-          "chapter": 12,
-          "score": 44.288,
-          "title": "王熙鳳毒設相思局賈天祥正照風月鑒"
+          "id": "hlm_ch005_p006",
+          "chapter": 5,
+          "score": 83.901,
+          "title": "游幻境指迷十二釵飲仙醪曲演紅樓夢"
         }
       ]
     },
@@ -388,18 +124,18 @@
       ],
       "retrieved_chapters": [
         1,
-        5,
-        5,
-        5
+        1,
+        1,
+        1
       ],
       "expected_concepts": [
         "无常",
         "空"
       ],
       "retrieved_concepts": [
-        "因果",
-        "执着",
-        "无常"
+        "无常",
+        "空",
+        "解脱"
       ],
       "top1_hit": true,
       "topk_hit": true,
@@ -409,26 +145,26 @@
         {
           "id": "hlm_ch001_p016",
           "chapter": 1,
-          "score": 46.522,
+          "score": 91.875,
           "title": "甄士隱夢幻識通靈賈雨村風塵怀閨秀"
         },
         {
-          "id": "hlm_ch005_p012",
-          "chapter": 5,
-          "score": 23.096,
-          "title": "游幻境指迷十二釵飲仙醪曲演紅樓夢"
+          "id": "hlm_ch001_p003",
+          "chapter": 1,
+          "score": 38.175,
+          "title": "甄士隱夢幻識通靈賈雨村風塵怀閨秀"
         },
         {
-          "id": "hlm_ch005_p013",
-          "chapter": 5,
-          "score": 21.992,
-          "title": "游幻境指迷十二釵飲仙醪曲演紅樓夢"
+          "id": "hlm_ch001_p002",
+          "chapter": 1,
+          "score": 33.532,
+          "title": "甄士隱夢幻識通靈賈雨村風塵怀閨秀"
         },
         {
-          "id": "hlm_ch005_p014",
-          "chapter": 5,
-          "score": 16.767,
-          "title": "游幻境指迷十二釵飲仙醪曲演紅樓夢"
+          "id": "hlm_ch001_p012",
+          "chapter": 1,
+          "score": 31.783,
+          "title": "甄士隱夢幻識通靈賈雨村風塵怀閨秀"
         }
       ]
     },
@@ -441,47 +177,47 @@
       ],
       "retrieved_chapters": [
         32,
-        18,
-        63,
-        32
+        32,
+        19,
+        19
       ],
       "expected_concepts": [
         "功名责任",
         "礼"
       ],
       "retrieved_concepts": [
+        "修身",
         "功名责任",
-        "礼",
-        "自然"
+        "反功利"
       ],
       "top1_hit": false,
-      "topk_hit": false,
+      "topk_hit": true,
       "concept_hit": true,
       "coverage_warning": "",
       "top_evidence": [
         {
           "id": "hlm_ch032_p004",
           "chapter": 32,
-          "score": 41.426,
+          "score": 71.224,
           "title": "訴肺腑心迷活寶玉含恥辱情烈死金釧"
-        },
-        {
-          "id": "hlm_ch018_p008",
-          "chapter": 18,
-          "score": 29.619,
-          "title": "隔珠帘父女勉忠勤搦湘管姊弟裁題詠"
-        },
-        {
-          "id": "hlm_ch063_p020",
-          "chapter": 63,
-          "score": 26.443,
-          "title": "壽怡紅群芳開夜宴死金丹獨艷理親喪"
         },
         {
           "id": "hlm_ch032_p005",
           "chapter": 32,
-          "score": 25.653,
+          "score": 55.394,
           "title": "訴肺腑心迷活寶玉含恥辱情烈死金釧"
+        },
+        {
+          "id": "hlm_ch019_p010",
+          "chapter": 19,
+          "score": 45.545,
+          "title": "情切切良宵花解語意綿綿靜日玉生香"
+        },
+        {
+          "id": "hlm_ch019_p012",
+          "chapter": 19,
+          "score": 37.114,
+          "title": "情切切良宵花解語意綿綿靜日玉生香"
         }
       ]
     },
@@ -493,48 +229,50 @@
         19
       ],
       "retrieved_chapters": [
-        8,
         32,
-        50,
-        34
+        32,
+        19,
+        19
       ],
       "expected_concepts": [
-        "无为",
-        "自然"
-      ],
-      "retrieved_concepts": [
+        "反功利",
         "无为",
         "自然",
-        "齐物"
+        "逍遥"
+      ],
+      "retrieved_concepts": [
+        "功名责任",
+        "反功利",
+        "逍遥"
       ],
       "top1_hit": false,
-      "topk_hit": false,
+      "topk_hit": true,
       "concept_hit": true,
       "coverage_warning": "",
       "top_evidence": [
         {
-          "id": "hlm_ch008_p004",
-          "chapter": 8,
-          "score": 25.421,
-          "title": "比通靈金鶯微露意探寶釵黛玉半含酸"
-        },
-        {
           "id": "hlm_ch032_p004",
           "chapter": 32,
-          "score": 23.64,
+          "score": 53.438,
           "title": "訴肺腑心迷活寶玉含恥辱情烈死金釧"
         },
         {
-          "id": "hlm_ch050_p015",
-          "chapter": 50,
-          "score": 20.032,
-          "title": "蘆雪庵爭聯即景詩暖香塢雅制春燈謎"
+          "id": "hlm_ch032_p005",
+          "chapter": 32,
+          "score": 48.126,
+          "title": "訴肺腑心迷活寶玉含恥辱情烈死金釧"
         },
         {
-          "id": "hlm_ch034_p011",
-          "chapter": 34,
-          "score": 19.375,
-          "title": "情中情因情感妹妹錯里錯以錯勸哥哥"
+          "id": "hlm_ch019_p003",
+          "chapter": 19,
+          "score": 32.79,
+          "title": "情切切良宵花解語意綿綿靜日玉生香"
+        },
+        {
+          "id": "hlm_ch019_p002",
+          "chapter": 19,
+          "score": 32.77,
+          "title": "情切切良宵花解語意綿綿靜日玉生香"
         }
       ]
     },
@@ -547,16 +285,17 @@
       ],
       "retrieved_chapters": [
         27,
-        57,
-        32,
-        29
+        27,
+        27,
+        27
       ],
       "expected_concepts": [
         "无常"
       ],
       "retrieved_concepts": [
         "无常",
-        "自然"
+        "苦",
+        "虚静"
       ],
       "top1_hit": true,
       "topk_hit": true,
@@ -566,26 +305,26 @@
         {
           "id": "hlm_ch027_p013",
           "chapter": 27,
-          "score": 35.845,
+          "score": 80.752,
           "title": "滴翠亭楊妃戲彩蝶埋香冢飛燕泣殘紅"
         },
         {
-          "id": "hlm_ch057_p007",
-          "chapter": 57,
-          "score": 31.838,
-          "title": "慧紫鵑情辭試忙玉慈姨媽愛語慰痴顰"
+          "id": "hlm_ch027_p002",
+          "chapter": 27,
+          "score": 76.626,
+          "title": "滴翠亭楊妃戲彩蝶埋香冢飛燕泣殘紅"
         },
         {
-          "id": "hlm_ch032_p007",
-          "chapter": 32,
-          "score": 31.371,
-          "title": "訴肺腑心迷活寶玉含恥辱情烈死金釧"
+          "id": "hlm_ch027_p001",
+          "chapter": 27,
+          "score": 68.994,
+          "title": "滴翠亭楊妃戲彩蝶埋香冢飛燕泣殘紅"
         },
         {
-          "id": "hlm_ch029_p017",
-          "chapter": 29,
-          "score": 31.007,
-          "title": "享福人福深還禱福痴情女情重愈斟情"
+          "id": "hlm_ch027_p014",
+          "chapter": 27,
+          "score": 68.392,
+          "title": "滴翠亭楊妃戲彩蝶埋香冢飛燕泣殘紅"
         }
       ]
     },
@@ -599,17 +338,17 @@
       "retrieved_chapters": [
         27,
         27,
-        76,
-        7
+        27,
+        27
       ],
       "expected_concepts": [
         "执着",
         "无常"
       ],
       "retrieved_concepts": [
-        "因果",
-        "执着",
-        "无常"
+        "无常",
+        "缘起",
+        "苦"
       ],
       "top1_hit": true,
       "topk_hit": true,
@@ -619,26 +358,26 @@
         {
           "id": "hlm_ch027_p013",
           "chapter": 27,
-          "score": 25.566,
+          "score": 72.261,
           "title": "滴翠亭楊妃戲彩蝶埋香冢飛燕泣殘紅"
         },
         {
           "id": "hlm_ch027_p002",
           "chapter": 27,
-          "score": 20.717,
+          "score": 69.693,
           "title": "滴翠亭楊妃戲彩蝶埋香冢飛燕泣殘紅"
         },
         {
-          "id": "hlm_ch076_p013",
-          "chapter": 76,
-          "score": 20.641,
-          "title": "凸碧堂品笛感凄清凹晶館聯詩悲寂寞"
+          "id": "hlm_ch027_p014",
+          "chapter": 27,
+          "score": 67.022,
+          "title": "滴翠亭楊妃戲彩蝶埋香冢飛燕泣殘紅"
         },
         {
-          "id": "hlm_ch007_p007",
-          "chapter": 7,
-          "score": 20.064,
-          "title": "送宮花賈璉戲熙鳳宴宁府寶玉會秦鐘"
+          "id": "hlm_ch027_p005",
+          "chapter": 27,
+          "score": 51.347,
+          "title": "滴翠亭楊妃戲彩蝶埋香冢飛燕泣殘紅"
         }
       ]
     },
@@ -650,47 +389,47 @@
         23
       ],
       "retrieved_chapters": [
-        32,
-        68,
-        58,
-        53
+        23,
+        23,
+        23,
+        23
       ],
       "expected_concepts": [
         "礼"
       ],
       "retrieved_concepts": [
-        "人情练达",
-        "功名责任",
-        "礼"
+        "礼",
+        "自然",
+        "返朴归真"
       ],
-      "top1_hit": false,
-      "topk_hit": false,
+      "top1_hit": true,
+      "topk_hit": true,
       "concept_hit": true,
       "coverage_warning": "",
       "top_evidence": [
         {
-          "id": "hlm_ch032_p004",
-          "chapter": 32,
-          "score": 27.325,
-          "title": "訴肺腑心迷活寶玉含恥辱情烈死金釧"
+          "id": "hlm_ch023_p008",
+          "chapter": 23,
+          "score": 47.234,
+          "title": "西廂記妙詞通戲語牡丹亭艷曲警芳心"
         },
         {
-          "id": "hlm_ch068_p014",
-          "chapter": 68,
-          "score": 24.929,
-          "title": "苦尤娘賺入大觀園酸鳳姐大鬧宁國府"
+          "id": "hlm_ch023_p003",
+          "chapter": 23,
+          "score": 46.562,
+          "title": "西廂記妙詞通戲語牡丹亭艷曲警芳心"
         },
         {
-          "id": "hlm_ch058_p010",
-          "chapter": 58,
-          "score": 23.467,
-          "title": "杏子陰假鳳泣虛凰茜紗窗真情揆痴理"
+          "id": "hlm_ch023_p012",
+          "chapter": 23,
+          "score": 40.82,
+          "title": "西廂記妙詞通戲語牡丹亭艷曲警芳心"
         },
         {
-          "id": "hlm_ch053_p010",
-          "chapter": 53,
-          "score": 21.891,
-          "title": "宁國府除夕祭宗祠榮國府元宵開夜宴"
+          "id": "hlm_ch023_p004",
+          "chapter": 23,
+          "score": 39.418,
+          "title": "西廂記妙詞通戲語牡丹亭艷曲警芳心"
         }
       ]
     },
@@ -703,10 +442,10 @@
         22
       ],
       "retrieved_chapters": [
-        31,
-        27,
-        4,
-        32
+        32,
+        32,
+        8,
+        8
       ],
       "expected_concepts": [
         "人情练达",
@@ -714,37 +453,37 @@
       ],
       "retrieved_concepts": [
         "人情练达",
-        "功名责任",
+        "仁",
         "礼"
       ],
       "top1_hit": false,
-      "topk_hit": false,
+      "topk_hit": true,
       "concept_hit": true,
       "coverage_warning": "",
       "top_evidence": [
         {
-          "id": "hlm_ch031_p003",
-          "chapter": 31,
-          "score": 28.906,
-          "title": "撕扇子作千金一笑因麒麟伏白首雙星話"
-        },
-        {
-          "id": "hlm_ch027_p004",
-          "chapter": 27,
-          "score": 26.915,
-          "title": "滴翠亭楊妃戲彩蝶埋香冢飛燕泣殘紅"
-        },
-        {
-          "id": "hlm_ch004_p014",
-          "chapter": 4,
-          "score": 26.235,
-          "title": "薄命女偏逢薄命郎葫蘆僧亂判葫蘆案"
-        },
-        {
           "id": "hlm_ch032_p004",
           "chapter": 32,
-          "score": 26.122,
+          "score": 52.122,
           "title": "訴肺腑心迷活寶玉含恥辱情烈死金釧"
+        },
+        {
+          "id": "hlm_ch032_p009",
+          "chapter": 32,
+          "score": 48.218,
+          "title": "訴肺腑心迷活寶玉含恥辱情烈死金釧"
+        },
+        {
+          "id": "hlm_ch008_p006",
+          "chapter": 8,
+          "score": 47.354,
+          "title": "比通靈金鶯微露意探寶釵黛玉半含酸"
+        },
+        {
+          "id": "hlm_ch008_p003",
+          "chapter": 8,
+          "score": 47.247,
+          "title": "比通靈金鶯微露意探寶釵黛玉半含酸"
         }
       ]
     },
@@ -756,47 +495,47 @@
         3
       ],
       "retrieved_chapters": [
-        18,
-        25,
-        1,
-        53
+        3,
+        3,
+        3,
+        3
       ],
       "expected_concepts": [
         "礼"
       ],
       "retrieved_concepts": [
-        "人情练达",
-        "功名责任",
+        "孝",
+        "治理",
         "礼"
       ],
-      "top1_hit": false,
-      "topk_hit": false,
+      "top1_hit": true,
+      "topk_hit": true,
       "concept_hit": true,
       "coverage_warning": "",
       "top_evidence": [
         {
-          "id": "hlm_ch018_p005",
-          "chapter": 18,
-          "score": 36.635,
-          "title": "隔珠帘父女勉忠勤搦湘管姊弟裁題詠"
+          "id": "hlm_ch003_p003",
+          "chapter": 3,
+          "score": 70.929,
+          "title": "賈雨村夤緣复舊職林黛玉拋父進京都"
         },
         {
-          "id": "hlm_ch025_p018",
-          "chapter": 25,
-          "score": 31.01,
-          "title": "魘魔法姊弟逢五鬼紅樓夢通靈遇雙真"
+          "id": "hlm_ch003_p015",
+          "chapter": 3,
+          "score": 46.166,
+          "title": "賈雨村夤緣复舊職林黛玉拋父進京都"
         },
         {
-          "id": "hlm_ch001_p007",
-          "chapter": 1,
-          "score": 28.678,
-          "title": "甄士隱夢幻識通靈賈雨村風塵怀閨秀"
+          "id": "hlm_ch003_p005",
+          "chapter": 3,
+          "score": 39.069,
+          "title": "賈雨村夤緣复舊職林黛玉拋父進京都"
         },
         {
-          "id": "hlm_ch053_p010",
-          "chapter": 53,
-          "score": 28.381,
-          "title": "宁國府除夕祭宗祠榮國府元宵開夜宴"
+          "id": "hlm_ch003_p002",
+          "chapter": 3,
+          "score": 38.926,
+          "title": "賈雨村夤緣复舊職林黛玉拋父進京都"
         }
       ]
     },
@@ -810,45 +549,47 @@
         41
       ],
       "retrieved_chapters": [
-        6,
         39,
-        41,
-        40
+        39,
+        39,
+        39
       ],
       "expected_concepts": [
         "无常"
       ],
       "retrieved_concepts": [
-        "无常"
+        "中庸",
+        "无常",
+        "梦幻泡影"
       ],
-      "top1_hit": false,
+      "top1_hit": true,
       "topk_hit": true,
       "concept_hit": true,
       "coverage_warning": "",
       "top_evidence": [
         {
-          "id": "hlm_ch006_p006",
-          "chapter": 6,
-          "score": 55.004,
-          "title": "賈寶玉初試云雨情劉姥姥一進榮國府"
-        },
-        {
           "id": "hlm_ch039_p007",
           "chapter": 39,
-          "score": 48.769,
+          "score": 85.357,
           "title": "村姥姥是信口開合情哥哥偏尋根究底"
         },
         {
-          "id": "hlm_ch041_p003",
-          "chapter": 41,
-          "score": 34.784,
-          "title": "櫳翠庵茶品梅花雪怡紅院劫遇母蝗虫"
+          "id": "hlm_ch039_p009",
+          "chapter": 39,
+          "score": 80.583,
+          "title": "村姥姥是信口開合情哥哥偏尋根究底"
         },
         {
-          "id": "hlm_ch040_p003",
-          "chapter": 40,
-          "score": 34.706,
-          "title": "史太君兩宴大觀園金鴛鴦三宣牙牌令"
+          "id": "hlm_ch039_p005",
+          "chapter": 39,
+          "score": 69.039,
+          "title": "村姥姥是信口開合情哥哥偏尋根究底"
+        },
+        {
+          "id": "hlm_ch039_p006",
+          "chapter": 39,
+          "score": 67.497,
+          "title": "村姥姥是信口開合情哥哥偏尋根究底"
         }
       ]
     },
@@ -861,10 +602,10 @@
         56
       ],
       "retrieved_chapters": [
-        70,
-        32,
-        77,
-        68
+        56,
+        56,
+        56,
+        56
       ],
       "expected_concepts": [
         "人情练达",
@@ -872,37 +613,37 @@
       ],
       "retrieved_concepts": [
         "人情练达",
-        "功名责任",
+        "治理",
         "礼"
       ],
-      "top1_hit": false,
-      "topk_hit": false,
+      "top1_hit": true,
+      "topk_hit": true,
       "concept_hit": true,
       "coverage_warning": "",
       "top_evidence": [
         {
-          "id": "hlm_ch070_p001",
-          "chapter": 70,
-          "score": 28.376,
-          "title": "林黛玉重建桃花社史湘云偶填柳絮詞"
+          "id": "hlm_ch056_p006",
+          "chapter": 56,
+          "score": 62.738,
+          "title": "敏探春興利除宿弊時寶釵小惠全大体"
         },
         {
-          "id": "hlm_ch032_p004",
-          "chapter": 32,
-          "score": 27.325,
-          "title": "訴肺腑心迷活寶玉含恥辱情烈死金釧"
+          "id": "hlm_ch056_p012",
+          "chapter": 56,
+          "score": 61.507,
+          "title": "敏探春興利除宿弊時寶釵小惠全大体"
         },
         {
-          "id": "hlm_ch077_p006",
-          "chapter": 77,
-          "score": 25.245,
-          "title": "俏丫鬟抱屈夭風流美优伶斬情歸水月"
+          "id": "hlm_ch056_p014",
+          "chapter": 56,
+          "score": 59.585,
+          "title": "敏探春興利除宿弊時寶釵小惠全大体"
         },
         {
-          "id": "hlm_ch068_p012",
-          "chapter": 68,
-          "score": 22.759,
-          "title": "苦尤娘賺入大觀園酸鳳姐大鬧宁國府"
+          "id": "hlm_ch056_p010",
+          "chapter": 56,
+          "score": 57.737,
+          "title": "敏探春興利除宿弊時寶釵小惠全大体"
         }
       ]
     },
@@ -923,9 +664,9 @@
         "礼"
       ],
       "retrieved_concepts": [
-        "人情练达",
-        "功名责任",
-        "礼"
+        "内外之别",
+        "礼",
+        "逍遥"
       ],
       "top1_hit": true,
       "topk_hit": true,
@@ -935,25 +676,25 @@
         {
           "id": "hlm_ch074_p014",
           "chapter": 74,
-          "score": 30.859,
-          "title": "惑奸讒抄檢大觀園矢孤介杜絕宁國府"
-        },
-        {
-          "id": "hlm_ch074_p018",
-          "chapter": 74,
-          "score": 29.295,
+          "score": 77.313,
           "title": "惑奸讒抄檢大觀園矢孤介杜絕宁國府"
         },
         {
           "id": "hlm_ch074_p012",
           "chapter": 74,
-          "score": 29.072,
+          "score": 71.136,
           "title": "惑奸讒抄檢大觀園矢孤介杜絕宁國府"
         },
         {
           "id": "hlm_ch074_p013",
           "chapter": 74,
-          "score": 28.838,
+          "score": 70.539,
+          "title": "惑奸讒抄檢大觀園矢孤介杜絕宁國府"
+        },
+        {
+          "id": "hlm_ch074_p017",
+          "chapter": 74,
+          "score": 64.962,
           "title": "惑奸讒抄檢大觀園矢孤介杜絕宁國府"
         }
       ]
@@ -976,9 +717,9 @@
         "自然"
       ],
       "retrieved_concepts": [
-        "无为",
+        "内外之别",
         "自然",
-        "齐物"
+        "逍遥"
       ],
       "top1_hit": true,
       "topk_hit": true,
@@ -986,27 +727,27 @@
       "coverage_warning": "",
       "top_evidence": [
         {
-          "id": "hlm_ch074_p025",
-          "chapter": 74,
-          "score": 53.052,
-          "title": "惑奸讒抄檢大觀園矢孤介杜絕宁國府"
-        },
-        {
           "id": "hlm_ch074_p014",
           "chapter": 74,
-          "score": 38.063,
+          "score": 88.545,
           "title": "惑奸讒抄檢大觀園矢孤介杜絕宁國府"
         },
         {
-          "id": "hlm_ch074_p018",
+          "id": "hlm_ch074_p025",
           "chapter": 74,
-          "score": 29.295,
+          "score": 88.171,
           "title": "惑奸讒抄檢大觀園矢孤介杜絕宁國府"
         },
         {
-          "id": "hlm_ch074_p011",
+          "id": "hlm_ch074_p012",
           "chapter": 74,
-          "score": 28.511,
+          "score": 74.562,
+          "title": "惑奸讒抄檢大觀園矢孤介杜絕宁國府"
+        },
+        {
+          "id": "hlm_ch074_p013",
+          "chapter": 74,
+          "score": 69.242,
           "title": "惑奸讒抄檢大觀園矢孤介杜絕宁國府"
         }
       ]
@@ -1020,46 +761,51 @@
         77
       ],
       "retrieved_chapters": [
-        39,
         77,
-        79,
-        18
+        77,
+        77,
+        77
       ],
       "expected_concepts": [
+        "内外之别",
+        "名教",
+        "家族伦理",
         "无常",
         "礼"
       ],
       "retrieved_concepts": [
-        "因果"
+        "内外之别",
+        "名教",
+        "家族伦理"
       ],
-      "top1_hit": false,
+      "top1_hit": true,
       "topk_hit": true,
-      "concept_hit": false,
+      "concept_hit": true,
       "coverage_warning": "",
       "top_evidence": [
         {
-          "id": "hlm_ch039_p013",
-          "chapter": 39,
-          "score": 40.16,
-          "title": "村姥姥是信口開合情哥哥偏尋根究底"
-        },
-        {
           "id": "hlm_ch077_p008",
           "chapter": 77,
-          "score": 29.446,
+          "score": 94.594,
           "title": "俏丫鬟抱屈夭風流美优伶斬情歸水月"
         },
         {
-          "id": "hlm_ch079_p005",
-          "chapter": 79,
-          "score": 28.775,
-          "title": "薛文龍悔娶河東獅賈迎春誤嫁中山狼"
+          "id": "hlm_ch077_p017",
+          "chapter": 77,
+          "score": 85.174,
+          "title": "俏丫鬟抱屈夭風流美优伶斬情歸水月"
         },
         {
-          "id": "hlm_ch018_p002",
-          "chapter": 18,
-          "score": 22.585,
-          "title": "隔珠帘父女勉忠勤搦湘管姊弟裁題詠"
+          "id": "hlm_ch077_p018",
+          "chapter": 77,
+          "score": 80.745,
+          "title": "俏丫鬟抱屈夭風流美优伶斬情歸水月"
+        },
+        {
+          "id": "hlm_ch077_p006",
+          "chapter": 77,
+          "score": 79.955,
+          "title": "俏丫鬟抱屈夭風流美优伶斬情歸水月"
         }
       ]
     },
@@ -1073,46 +819,46 @@
       "retrieved_chapters": [
         78,
         78,
-        56,
-        40
+        78,
+        78
       ],
       "expected_concepts": [
         "执着",
         "无常"
       ],
       "retrieved_concepts": [
-        "功名责任",
-        "无为",
-        "自然"
+        "执着",
+        "无常",
+        "返朴归真"
       ],
       "top1_hit": true,
       "topk_hit": true,
-      "concept_hit": false,
+      "concept_hit": true,
       "coverage_warning": "",
       "top_evidence": [
         {
           "id": "hlm_ch078_p022",
           "chapter": 78,
-          "score": 72.006,
+          "score": 100.199,
           "title": "老學士閒征詭畫詞痴公子杜撰芙蓉誄"
         },
         {
           "id": "hlm_ch078_p017",
           "chapter": 78,
-          "score": 33.563,
+          "score": 57.563,
           "title": "老學士閒征詭畫詞痴公子杜撰芙蓉誄"
         },
         {
-          "id": "hlm_ch056_p017",
-          "chapter": 56,
-          "score": 28.017,
-          "title": "敏探春興利除宿弊時寶釵小惠全大体"
+          "id": "hlm_ch078_p010",
+          "chapter": 78,
+          "score": 46.43,
+          "title": "老學士閒征詭畫詞痴公子杜撰芙蓉誄"
         },
         {
-          "id": "hlm_ch040_p004",
-          "chapter": 40,
-          "score": 27.173,
-          "title": "史太君兩宴大觀園金鴛鴦三宣牙牌令"
+          "id": "hlm_ch078_p007",
+          "chapter": 78,
+          "score": 44.277,
+          "title": "老學士閒征詭畫詞痴公子杜撰芙蓉誄"
         }
       ]
     },
@@ -1126,10 +872,10 @@
         69
       ],
       "retrieved_chapters": [
-        27,
-        7,
-        5,
-        13
+        12,
+        12,
+        68,
+        68
       ],
       "expected_concepts": [
         "因果",
@@ -1138,36 +884,36 @@
       "retrieved_concepts": [
         "因果",
         "执着",
-        "无常"
+        "报应"
       ],
-      "top1_hit": false,
-      "topk_hit": false,
+      "top1_hit": true,
+      "topk_hit": true,
       "concept_hit": true,
       "coverage_warning": "",
       "top_evidence": [
         {
-          "id": "hlm_ch027_p002",
-          "chapter": 27,
-          "score": 21.937,
-          "title": "滴翠亭楊妃戲彩蝶埋香冢飛燕泣殘紅"
+          "id": "hlm_ch012_p007",
+          "chapter": 12,
+          "score": 40.924,
+          "title": "王熙鳳毒設相思局賈天祥正照風月鑒"
         },
         {
-          "id": "hlm_ch007_p012",
-          "chapter": 7,
-          "score": 20.491,
-          "title": "送宮花賈璉戲熙鳳宴宁府寶玉會秦鐘"
+          "id": "hlm_ch012_p003",
+          "chapter": 12,
+          "score": 40.635,
+          "title": "王熙鳳毒設相思局賈天祥正照風月鑒"
         },
         {
-          "id": "hlm_ch005_p012",
-          "chapter": 5,
-          "score": 19.582,
-          "title": "游幻境指迷十二釵飲仙醪曲演紅樓夢"
+          "id": "hlm_ch068_p020",
+          "chapter": 68,
+          "score": 39.133,
+          "title": "苦尤娘賺入大觀園酸鳳姐大鬧宁國府"
         },
         {
-          "id": "hlm_ch013_p001",
-          "chapter": 13,
-          "score": 19.206,
-          "title": "秦可卿死封龍禁尉王熙鳳協理宁國府"
+          "id": "hlm_ch068_p009",
+          "chapter": 68,
+          "score": 38.717,
+          "title": "苦尤娘賺入大觀園酸鳳姐大鬧宁國府"
         }
       ]
     },
@@ -1191,7 +937,7 @@
       "retrieved_concepts": [
         "因果",
         "执着",
-        "无常"
+        "解脱"
       ],
       "top1_hit": true,
       "topk_hit": true,
@@ -1242,6 +988,7 @@
         "无常"
       ],
       "retrieved_concepts": [
+        "家族伦理",
         "无常"
       ],
       "top1_hit": true,
@@ -1293,9 +1040,9 @@
         "无常"
       ],
       "retrieved_concepts": [
-        "因果",
-        "执着",
-        "无常"
+        "净土想象",
+        "无常",
+        "梦幻泡影"
       ],
       "top1_hit": true,
       "topk_hit": true,
@@ -1348,8 +1095,8 @@
         "礼"
       ],
       "retrieved_concepts": [
-        "人情练达",
         "功名责任",
+        "孝",
         "礼"
       ],
       "top1_hit": false,
@@ -1392,10 +1139,10 @@
         34
       ],
       "retrieved_chapters": [
+        33,
+        34,
         58,
-        32,
-        68,
-        1
+        34
       ],
       "expected_concepts": [
         "功名责任",
@@ -1403,37 +1150,37 @@
       ],
       "retrieved_concepts": [
         "功名责任",
-        "因果",
+        "孝",
         "礼"
       ],
-      "top1_hit": false,
-      "topk_hit": false,
+      "top1_hit": true,
+      "topk_hit": true,
       "concept_hit": true,
       "coverage_warning": "",
       "top_evidence": [
         {
+          "id": "hlm_ch033_p007",
+          "chapter": 33,
+          "score": 37.175,
+          "title": "手足耽耽小動唇舌不肖种种大承笞撻卻"
+        },
+        {
+          "id": "hlm_ch034_p011",
+          "chapter": 34,
+          "score": 35.42,
+          "title": "情中情因情感妹妹錯里錯以錯勸哥哥"
+        },
+        {
           "id": "hlm_ch058_p010",
           "chapter": 58,
-          "score": 33.305,
+          "score": 34.908,
           "title": "杏子陰假鳳泣虛凰茜紗窗真情揆痴理"
         },
         {
-          "id": "hlm_ch032_p004",
-          "chapter": 32,
-          "score": 31.075,
-          "title": "訴肺腑心迷活寶玉含恥辱情烈死金釧"
-        },
-        {
-          "id": "hlm_ch068_p014",
-          "chapter": 68,
-          "score": 25.949,
-          "title": "苦尤娘賺入大觀園酸鳳姐大鬧宁國府"
-        },
-        {
-          "id": "hlm_ch001_p008",
-          "chapter": 1,
-          "score": 25.849,
-          "title": "甄士隱夢幻識通靈賈雨村風塵怀閨秀"
+          "id": "hlm_ch034_p003",
+          "chapter": 34,
+          "score": 34.803,
+          "title": "情中情因情感妹妹錯里錯以錯勸哥哥"
         }
       ]
     },
@@ -1445,47 +1192,47 @@
         57
       ],
       "retrieved_chapters": [
-        34,
         57,
-        34,
-        62
+        57,
+        57,
+        57
       ],
       "expected_concepts": [
         "执着"
       ],
       "retrieved_concepts": [
-        "因果",
         "执着",
-        "无常"
+        "无我",
+        "缘起"
       ],
-      "top1_hit": false,
+      "top1_hit": true,
       "topk_hit": true,
       "concept_hit": true,
       "coverage_warning": "",
       "top_evidence": [
         {
-          "id": "hlm_ch034_p007",
-          "chapter": 34,
-          "score": 21.297,
-          "title": "情中情因情感妹妹錯里錯以錯勸哥哥"
-        },
-        {
           "id": "hlm_ch057_p007",
           "chapter": 57,
-          "score": 20.462,
+          "score": 48.462,
           "title": "慧紫鵑情辭試忙玉慈姨媽愛語慰痴顰"
         },
         {
-          "id": "hlm_ch034_p012",
-          "chapter": 34,
-          "score": 20.114,
-          "title": "情中情因情感妹妹錯里錯以錯勸哥哥"
+          "id": "hlm_ch057_p018",
+          "chapter": 57,
+          "score": 41.861,
+          "title": "慧紫鵑情辭試忙玉慈姨媽愛語慰痴顰"
         },
         {
-          "id": "hlm_ch062_p024",
-          "chapter": 62,
-          "score": 19.595,
-          "title": "憨湘云醉眠芍藥茵屆@呆香菱情解石榴裙"
+          "id": "hlm_ch057_p017",
+          "chapter": 57,
+          "score": 33.624,
+          "title": "慧紫鵑情辭試忙玉慈姨媽愛語慰痴顰"
+        },
+        {
+          "id": "hlm_ch057_p002",
+          "chapter": 57,
+          "score": 30.26,
+          "title": "慧紫鵑情辭試忙玉慈姨媽愛語慰痴顰"
         }
       ]
     },
@@ -1499,18 +1246,18 @@
       ],
       "retrieved_chapters": [
         41,
-        5,
+        76,
         41,
-        5
+        41
       ],
       "expected_concepts": [
         "执着",
         "空"
       ],
       "retrieved_concepts": [
-        "因果",
+        "净土想象",
         "执着",
-        "无常"
+        "空"
       ],
       "top1_hit": true,
       "topk_hit": true,
@@ -1520,26 +1267,26 @@
         {
           "id": "hlm_ch041_p007",
           "chapter": 41,
-          "score": 33.399,
+          "score": 66.22,
           "title": "櫳翠庵茶品梅花雪怡紅院劫遇母蝗虫"
         },
         {
-          "id": "hlm_ch005_p012",
-          "chapter": 5,
-          "score": 16.099,
-          "title": "游幻境指迷十二釵飲仙醪曲演紅樓夢"
+          "id": "hlm_ch076_p015",
+          "chapter": 76,
+          "score": 49.135,
+          "title": "凸碧堂品笛感凄清凹晶館聯詩悲寂寞"
         },
         {
           "id": "hlm_ch041_p008",
           "chapter": 41,
-          "score": 16.057,
+          "score": 48.902,
           "title": "櫳翠庵茶品梅花雪怡紅院劫遇母蝗虫"
         },
         {
-          "id": "hlm_ch005_p009",
-          "chapter": 5,
-          "score": 15.734,
-          "title": "游幻境指迷十二釵飲仙醪曲演紅樓夢"
+          "id": "hlm_ch041_p009",
+          "chapter": 41,
+          "score": 47.88,
+          "title": "櫳翠庵茶品梅花雪怡紅院劫遇母蝗虫"
         }
       ]
     },
@@ -1552,47 +1299,47 @@
         38
       ],
       "retrieved_chapters": [
-        34,
-        19,
-        11,
-        74
+        37,
+        38,
+        37,
+        37
       ],
       "expected_concepts": [
         "自然"
       ],
       "retrieved_concepts": [
-        "无为",
         "自然",
-        "齐物"
+        "返朴归真",
+        "逍遥"
       ],
-      "top1_hit": false,
-      "topk_hit": false,
+      "top1_hit": true,
+      "topk_hit": true,
       "concept_hit": true,
       "coverage_warning": "",
       "top_evidence": [
         {
-          "id": "hlm_ch034_p011",
-          "chapter": 34,
-          "score": 15.365,
-          "title": "情中情因情感妹妹錯里錯以錯勸哥哥"
+          "id": "hlm_ch037_p015",
+          "chapter": 37,
+          "score": 44.527,
+          "title": "秋爽齋偶結海棠社蘅蕪苑夜擬菊花題"
         },
         {
-          "id": "hlm_ch019_p003",
-          "chapter": 19,
-          "score": 14.499,
-          "title": "情切切良宵花解語意綿綿靜日玉生香"
+          "id": "hlm_ch038_p012",
+          "chapter": 38,
+          "score": 43.251,
+          "title": "林瀟湘魁奪菊花詩薛蘅蕪諷和螃蟹詠"
         },
         {
-          "id": "hlm_ch011_p013",
-          "chapter": 11,
-          "score": 12.505,
-          "title": "慶壽辰宁府排家宴見熙鳳賈瑞起淫心"
+          "id": "hlm_ch037_p003",
+          "chapter": 37,
+          "score": 42.873,
+          "title": "秋爽齋偶結海棠社蘅蕪苑夜擬菊花題"
         },
         {
-          "id": "hlm_ch074_p014",
-          "chapter": 74,
-          "score": 12.5,
-          "title": "惑奸讒抄檢大觀園矢孤介杜絕宁國府"
+          "id": "hlm_ch037_p018",
+          "chapter": 37,
+          "score": 42.696,
+          "title": "秋爽齋偶結海棠社蘅蕪苑夜擬菊花題"
         }
       ]
     },
@@ -1605,46 +1352,47 @@
         49
       ],
       "retrieved_chapters": [
-        62,
-        79,
-        34,
-        24
+        48,
+        48,
+        48,
+        48
       ],
       "expected_concepts": [
         "自然"
       ],
       "retrieved_concepts": [
         "无常",
-        "自然"
+        "自然",
+        "苦"
       ],
-      "top1_hit": false,
-      "topk_hit": false,
+      "top1_hit": true,
+      "topk_hit": true,
       "concept_hit": true,
       "coverage_warning": "",
       "top_evidence": [
         {
-          "id": "hlm_ch062_p024",
-          "chapter": 62,
-          "score": 26.475,
-          "title": "憨湘云醉眠芍藥茵屆@呆香菱情解石榴裙"
+          "id": "hlm_ch048_p014",
+          "chapter": 48,
+          "score": 57.101,
+          "title": "濫情人情誤思游藝慕雅女雅集苦吟詩"
         },
         {
-          "id": "hlm_ch079_p005",
-          "chapter": 79,
-          "score": 24.783,
-          "title": "薛文龍悔娶河東獅賈迎春誤嫁中山狼"
+          "id": "hlm_ch048_p013",
+          "chapter": 48,
+          "score": 51.306,
+          "title": "濫情人情誤思游藝慕雅女雅集苦吟詩"
         },
         {
-          "id": "hlm_ch034_p008",
-          "chapter": 34,
-          "score": 23.643,
-          "title": "情中情因情感妹妹錯里錯以錯勸哥哥"
+          "id": "hlm_ch048_p006",
+          "chapter": 48,
+          "score": 50.403,
+          "title": "濫情人情誤思游藝慕雅女雅集苦吟詩"
         },
         {
-          "id": "hlm_ch024_p001",
-          "chapter": 24,
-          "score": 23.59,
-          "title": "醉金剛輕財尚義俠痴女儿遺帕惹相思"
+          "id": "hlm_ch048_p007",
+          "chapter": 48,
+          "score": 46.107,
+          "title": "濫情人情誤思游藝慕雅女雅集苦吟詩"
         }
       ]
     },
@@ -1657,48 +1405,51 @@
         66
       ],
       "retrieved_chapters": [
-        70,
-        64,
         65,
-        65
+        65,
+        65,
+        66
       ],
       "expected_concepts": [
+        "内外之别",
+        "名教",
+        "家族伦理",
         "无常",
         "礼"
       ],
       "retrieved_concepts": [
-        "人情练达",
-        "功名责任",
-        "礼"
+        "内外之别",
+        "名教",
+        "家族伦理"
       ],
-      "top1_hit": false,
+      "top1_hit": true,
       "topk_hit": true,
       "concept_hit": true,
       "coverage_warning": "",
       "top_evidence": [
         {
-          "id": "hlm_ch070_p001",
-          "chapter": 70,
-          "score": 51.938,
-          "title": "林黛玉重建桃花社史湘云偶填柳絮詞"
-        },
-        {
-          "id": "hlm_ch064_p001",
-          "chapter": 64,
-          "score": 48.244,
-          "title": "幽淑女悲題五美吟浪蕩子情遺九龍佩"
-        },
-        {
           "id": "hlm_ch065_p009",
           "chapter": 65,
-          "score": 42.323,
+          "score": 80.352,
           "title": "賈二舍偷娶尤二姨尤三姐思嫁柳二郎"
         },
         {
           "id": "hlm_ch065_p012",
           "chapter": 65,
-          "score": 40.98,
+          "score": 75.034,
           "title": "賈二舍偷娶尤二姨尤三姐思嫁柳二郎"
+        },
+        {
+          "id": "hlm_ch065_p008",
+          "chapter": 65,
+          "score": 71.085,
+          "title": "賈二舍偷娶尤二姨尤三姐思嫁柳二郎"
+        },
+        {
+          "id": "hlm_ch066_p002",
+          "chapter": 66,
+          "score": 67.518,
+          "title": "情小妹恥情歸地府冷二郎一冷入空門"
         }
       ]
     },
@@ -1711,8 +1462,8 @@
         69
       ],
       "retrieved_chapters": [
-        65,
         68,
+        69,
         69,
         69
       ],
@@ -1723,35 +1474,35 @@
       "retrieved_concepts": [
         "因果",
         "执着",
-        "无常"
+        "报应"
       ],
-      "top1_hit": false,
+      "top1_hit": true,
       "topk_hit": true,
       "concept_hit": true,
       "coverage_warning": "",
       "top_evidence": [
         {
-          "id": "hlm_ch065_p003",
-          "chapter": 65,
-          "score": 38.034,
-          "title": "賈二舍偷娶尤二姨尤三姐思嫁柳二郎"
-        },
-        {
           "id": "hlm_ch068_p007",
           "chapter": 68,
-          "score": 33.509,
+          "score": 67.711,
           "title": "苦尤娘賺入大觀園酸鳳姐大鬧宁國府"
         },
         {
           "id": "hlm_ch069_p010",
           "chapter": 69,
-          "score": 31.954,
+          "score": 66.185,
           "title": "弄小巧用借劍殺人覺大限吞生金自逝"
         },
         {
-          "id": "hlm_ch069_p013",
+          "id": "hlm_ch069_p008",
           "chapter": 69,
-          "score": 31.098,
+          "score": 62.713,
+          "title": "弄小巧用借劍殺人覺大限吞生金自逝"
+        },
+        {
+          "id": "hlm_ch069_p009",
+          "chapter": 69,
+          "score": 61.456,
           "title": "弄小巧用借劍殺人覺大限吞生金自逝"
         }
       ]
@@ -1766,17 +1517,17 @@
       ],
       "retrieved_chapters": [
         76,
-        5,
-        68,
-        5
+        75,
+        76,
+        76
       ],
       "expected_concepts": [
         "无常"
       ],
       "retrieved_concepts": [
-        "因果",
-        "执着",
-        "无常"
+        "无常",
+        "梦幻泡影",
+        "解脱"
       ],
       "top1_hit": true,
       "topk_hit": true,
@@ -1786,26 +1537,26 @@
         {
           "id": "hlm_ch076_p016",
           "chapter": 76,
-          "score": 34.958,
+          "score": 73.092,
           "title": "凸碧堂品笛感凄清凹晶館聯詩悲寂寞"
         },
         {
-          "id": "hlm_ch005_p013",
-          "chapter": 5,
-          "score": 23.259,
-          "title": "游幻境指迷十二釵飲仙醪曲演紅樓夢"
+          "id": "hlm_ch075_p007",
+          "chapter": 75,
+          "score": 49.055,
+          "title": "開夜宴异兆發悲音賞中秋新詞得佳讖"
         },
         {
-          "id": "hlm_ch068_p014",
-          "chapter": 68,
-          "score": 20.811,
-          "title": "苦尤娘賺入大觀園酸鳳姐大鬧宁國府"
+          "id": "hlm_ch076_p006",
+          "chapter": 76,
+          "score": 44.851,
+          "title": "凸碧堂品笛感凄清凹晶館聯詩悲寂寞"
         },
         {
-          "id": "hlm_ch005_p012",
-          "chapter": 5,
-          "score": 19.955,
-          "title": "游幻境指迷十二釵飲仙醪曲演紅樓夢"
+          "id": "hlm_ch076_p010",
+          "chapter": 76,
+          "score": 44.623,
+          "title": "凸碧堂品笛感凄清凹晶館聯詩悲寂寞"
         }
       ]
     },
@@ -1819,17 +1570,20 @@
       ],
       "retrieved_chapters": [
         79,
-        32,
+        79,
         79,
         79
       ],
       "expected_concepts": [
+        "内外之别",
+        "名教",
+        "家族伦理",
         "礼"
       ],
       "retrieved_concepts": [
-        "人情练达",
-        "功名责任",
-        "礼"
+        "内外之别",
+        "名教",
+        "家族伦理"
       ],
       "top1_hit": true,
       "topk_hit": true,
@@ -1839,25 +1593,25 @@
         {
           "id": "hlm_ch079_p005",
           "chapter": 79,
-          "score": 34.457,
+          "score": 75.704,
           "title": "薛文龍悔娶河東獅賈迎春誤嫁中山狼"
-        },
-        {
-          "id": "hlm_ch032_p004",
-          "chapter": 32,
-          "score": 33.567,
-          "title": "訴肺腑心迷活寶玉含恥辱情烈死金釧"
         },
         {
           "id": "hlm_ch079_p003",
           "chapter": 79,
-          "score": 30.049,
+          "score": 72.786,
           "title": "薛文龍悔娶河東獅賈迎春誤嫁中山狼"
         },
         {
           "id": "hlm_ch079_p007",
           "chapter": 79,
-          "score": 29.058,
+          "score": 69.859,
+          "title": "薛文龍悔娶河東獅賈迎春誤嫁中山狼"
+        },
+        {
+          "id": "hlm_ch079_p001",
+          "chapter": 79,
+          "score": 69.596,
           "title": "薛文龍悔娶河東獅賈迎春誤嫁中山狼"
         }
       ]

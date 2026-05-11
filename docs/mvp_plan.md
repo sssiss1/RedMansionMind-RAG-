@@ -31,7 +31,7 @@ If answers feel imprecise, improve the system in this order:
    - Prefer exact phrase matches for named scenes such as 太虚幻境, 好了歌, 葬花, 仕途经济.
 
 3. Improve concept grounding.
-   - Expand the philosophy concept file from 10 concepts to 30-50.
+   - Expand the philosophy concept file from 35 concepts to 50+.
    - Add aliases and example textual signals for each concept.
 
 4. Add LLM generation.
@@ -48,3 +48,21 @@ If answers feel imprecise, improve the system in this order:
 - Citation faithfulness: whether answer claims are supported by retrieved evidence
 - Perspective consistency: whether 儒家/道家/佛教 outputs use the selected framework
 - Human review: manually score 30 literary-philosophy questions
+
+## Current Retrieval Baseline
+
+After adding `data/annotations/scene_index.json`, the retrieval evaluation on `eval/questions.jsonl` reports:
+
+```text
+total: 30
+top1 chapter accuracy: 0.867
+top4 chapter accuracy: 1.0
+concept recall: 1.0
+misses: 0
+```
+
+Run it with:
+
+```bash
+python3 eval/run_eval.py
+```

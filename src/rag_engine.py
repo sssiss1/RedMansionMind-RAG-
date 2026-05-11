@@ -17,6 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PASSAGE_PATH = ROOT / "data" / "hongloumeng" / "passages.jsonl"
 CONCEPT_PATH = ROOT / "data" / "philosophy" / "concepts.jsonl"
 CHARACTER_PATH = ROOT / "data" / "annotations" / "characters.json"
+SCENE_PATH = ROOT / "data" / "annotations" / "scene_index.json"
 
 PERSPECTIVE_TERMS = {
     "综合": [],
@@ -165,25 +166,30 @@ class RedMansionRAG:
         self.passages = load_jsonl(PASSAGE_PATH)
         self.concepts = load_jsonl(CONCEPT_PATH)
         self.characters = json.loads(CHARACTER_PATH.read_text(encoding="utf-8"))
+        self.scenes = json.loads(SCENE_PATH.read_text(encoding="utf-8")) if SCENE_PATH.exists() else []
         self._passage_index = self._build_index(self.passages, ["text", "title", "characters", "themes"])
         self._concept_index = self._build_index(self.concepts, ["name", "tradition", "definition", "keywords", "related_themes"])
 
     def answer(self, question: str, perspective: str = "综合", use_llm: bool = False) -> dict[str, Any]:
         perspective = perspective if perspective in PERSPECTIVE_TERMS else "综合"
-        query_terms = self._expanded_query(question, perspective)
+        matched_scenes = self._matched_scenes(question)
+        passage_query_terms = self._expanded_query(question, perspective, matched_scenes, include_perspective=True)
+        concept_query_terms = self._expanded_query(question, perspective, matched_scenes, include_perspective=False)
         passages = self._rank(
             self.passages,
-            query_terms,
+            passage_query_terms,
             ["text", "title", "characters", "themes"],
             index=self._passage_index,
             query_text=question,
+            matched_scenes=matched_scenes,
         )[:4]
         concepts = self._rank(
             self.concepts,
-            query_terms,
+            concept_query_terms,
             ["name", "tradition", "definition", "keywords", "related_themes"],
             index=self._concept_index,
             query_text=question,
+            matched_scenes=matched_scenes,
             perspective=perspective,
         )[:3]
         characters = self._related_characters(passages)
@@ -197,6 +203,7 @@ class RedMansionRAG:
             "interpretation": self._compose_interpretation(perspective, passages, concepts),
             "related_characters": characters,
             "related_themes": self._related_themes(passages, concepts),
+            "matched_scenes": [self._public_scene(scene) for scene in matched_scenes],
             "coverage_warning": self._coverage_warning(question),
             "disclaimer": "当前 MVP 使用本地样例语料和可解释检索生成答案；后续可接入 LLM 生成更自然的阐释，但仍应保留引用约束。",
             "llm_enabled": False,
@@ -208,9 +215,35 @@ class RedMansionRAG:
 
         return response
 
-    def _expanded_query(self, question: str, perspective: str) -> list[str]:
+    def explain(self, question: str, perspective: str = "综合", use_llm: bool = True) -> dict[str, Any]:
+        response = self.answer(question, perspective, use_llm=False)
+        response["mode"] = "explain"
+        response["explain_title"] = self._compose_explain_title(response)
+        response["plain_explanation"] = self._compose_plain_explanation(response)
+        response["red_mansion_examples"] = self._compose_red_mansion_examples(response)
+        response["why_it_matters"] = self._compose_why_it_matters(response)
+        response["next_questions"] = self._compose_next_questions(response)
+        response["llm_enabled"] = False
+        response["llm_error"] = ""
+
+        if use_llm:
+            response = self._apply_llm_explanation(response)
+
+        return response
+
+    def _expanded_query(
+        self,
+        question: str,
+        perspective: str,
+        matched_scenes: list[dict[str, Any]],
+        include_perspective: bool,
+    ) -> list[str]:
         terms = tokenize(question)
-        terms.extend(PERSPECTIVE_TERMS[perspective])
+        if include_perspective:
+            terms.extend(PERSPECTIVE_TERMS[perspective])
+        for scene in matched_scenes:
+            terms.extend(scene.get("aliases", []))
+            terms.extend(scene.get("keywords", []))
         for name, profile in self.characters.items():
             if normalize_for_search(name) in normalize_for_search(question):
                 terms.extend(profile["keywords"])
@@ -233,6 +266,7 @@ class RedMansionRAG:
         fields: list[str],
         index: dict[str, Any],
         query_text: str,
+        matched_scenes: list[dict[str, Any]] | None = None,
         perspective: str | None = None,
     ) -> list[ScoredItem]:
         query_terms = [normalize_for_search(term) for term in query_terms if len(term) >= MIN_TOKEN_LEN]
@@ -251,8 +285,13 @@ class RedMansionRAG:
                     score += 1.5 + math.log1p(count)
                     matched.append(term)
             score += self._phrase_boost(query_text, item)
-            if perspective and perspective != "综合" and item.get("tradition") == perspective:
-                score += 6.0
+            score += self._scene_boost(item, matched_scenes or [])
+            score += self._concept_scene_boost(item, matched_scenes or [])
+            if perspective and perspective != "综合":
+                if item.get("tradition") == perspective:
+                    score += 14.0
+                else:
+                    score -= 4.0
             if score > 0:
                 scored.append(ScoredItem(item=item, score=round(score, 3), matched_terms=sorted(set(matched))[:8]))
         return sorted(scored, key=lambda x: x.score, reverse=True)
@@ -285,6 +324,60 @@ class RedMansionRAG:
             if phrase in haystack:
                 boost += min(len(phrase), 8) * 2.0
         return boost
+
+    def _matched_scenes(self, question: str) -> list[dict[str, Any]]:
+        normalized_question = normalize_for_search(question)
+        matches = []
+        for scene in self.scenes:
+            aliases = scene.get("aliases", []) + [scene.get("name", "")]
+            if any(normalize_for_search(alias) in normalized_question for alias in aliases if alias):
+                matches.append(scene)
+        return matches
+
+    def _scene_boost(self, item: dict[str, Any], matched_scenes: list[dict[str, Any]]) -> float:
+        if not matched_scenes or "chapter" not in item:
+            return 0.0
+        chapter = int(item.get("chapter", 0))
+        boost = 0.0
+        haystack = normalize_for_search(self._field_text(item, ["text", "title", "characters", "themes"]))
+        for scene in matched_scenes:
+            if chapter in scene.get("chapters", []):
+                boost += 24.0
+                for keyword in scene.get("keywords", []):
+                    if normalize_for_search(keyword) in haystack:
+                        boost += 2.0
+                for alias in scene.get("aliases", []):
+                    if normalize_for_search(alias) in haystack:
+                        boost += 5.0
+        return boost
+
+    def _concept_scene_boost(self, item: dict[str, Any], matched_scenes: list[dict[str, Any]]) -> float:
+        if not matched_scenes or "tradition" not in item:
+            return 0.0
+        concept_terms = {
+            normalize_for_search(item.get("name", "")),
+            *[normalize_for_search(term) for term in item.get("keywords", [])],
+            *[normalize_for_search(term) for term in item.get("related_themes", [])],
+        }
+        boost = 0.0
+        for scene in matched_scenes:
+            for keyword in scene.get("keywords", []):
+                normalized = normalize_for_search(keyword)
+                if normalized == normalize_for_search(item.get("name", "")):
+                    boost += 16.0
+                elif normalized in concept_terms:
+                    boost += 8.0
+                elif any(normalized in term or term in normalized for term in concept_terms if term):
+                    boost += 2.0
+        return boost
+
+    def _public_scene(self, scene: dict[str, Any]) -> dict[str, Any]:
+        return {
+            "id": scene.get("id", ""),
+            "name": scene.get("name", ""),
+            "chapters": scene.get("chapters", []),
+            "keywords": scene.get("keywords", []),
+        }
 
     def _field_text(self, item: dict[str, Any], fields: list[str]) -> str:
         parts = []
@@ -409,6 +502,60 @@ class RedMansionRAG:
         response["disclaimer"] = "LLM 回答仅基于页面展示的检索证据和哲学概念生成；若证据不足，应以 coverage warning 和原文证据为准。"
         return response
 
+    def _apply_llm_explanation(self, response: dict[str, Any]) -> dict[str, Any]:
+        if not is_configured():
+            response["llm_error"] = "未设置 OPENAI_API_KEY，当前显示本地科普模板。"
+            return response
+
+        payload = {
+            "question": response["question"],
+            "perspective": response["perspective"],
+            "matched_scenes": response["matched_scenes"],
+            "passages": [
+                {
+                    "id": item["id"],
+                    "chapter": item["chapter"],
+                    "title": item["title"],
+                    "text": item["text"],
+                    "themes": item["themes"],
+                }
+                for item in response["evidence"]
+            ],
+            "concepts": [
+                {
+                    "id": item["id"],
+                    "tradition": item["tradition"],
+                    "name": item["name"],
+                    "definition": item["definition"],
+                    "keywords": item["keywords"],
+                }
+                for item in response["concepts"]
+            ],
+        }
+        try:
+            llm_answer = chat_json(system_prompt=self._llm_explain_prompt(), user_payload=payload, temperature=0.35)
+        except (LLMConfigError, LLMCallError) as exc:
+            response["llm_error"] = str(exc)
+            return response
+
+        response["explain_title"] = str(llm_answer.get("title") or response["explain_title"])
+        response["plain_explanation"] = self._as_list(llm_answer.get("plain_explanation")) or response["plain_explanation"]
+        response["red_mansion_examples"] = self._as_list(llm_answer.get("red_mansion_examples")) or response["red_mansion_examples"]
+        response["why_it_matters"] = str(llm_answer.get("why_it_matters") or response["why_it_matters"])
+        response["next_questions"] = self._as_list(llm_answer.get("next_questions")) or response["next_questions"]
+        response["citation_notes"] = self._as_list(llm_answer.get("citation_notes"))
+        response["llm_enabled"] = True
+        response["llm_model"] = llm_answer.get("_llm_model", "")
+        response["disclaimer"] = "科普解释由 LLM 基于检索证据生成，重点是帮助入门理解；深入研究仍应回到原文和概念来源。"
+        return response
+
+    def _as_list(self, value: Any) -> list[str]:
+        if isinstance(value, list):
+            return [str(item) for item in value if str(item).strip()]
+        if isinstance(value, str) and value.strip():
+            return [value]
+        return []
+
     def _llm_system_prompt(self) -> str:
         return """你是一个严谨的《红楼梦》与中国哲学研究助手。
 只能根据用户提供的 passages 和 concepts 回答，不要编造未提供的原文、章节或学术来源。
@@ -419,6 +566,58 @@ class RedMansionRAG:
 - citation_notes: 数组，说明关键观点分别依据哪些 passage id / concept id
 - limits: 说明哪些地方属于解释性判断，而非原文事实
 回答语言使用简体中文。"""
+
+    def _llm_explain_prompt(self) -> str:
+        return """你是一个面向普通读者的《红楼梦》哲学科普讲解员。
+用户可能不了解中国哲学。请用清楚、温和、少术语的语言解释。
+只能根据用户提供的 passages 和 concepts 回答，不要编造未提供的原文、章节或学术来源。
+要求：
+1. 先把哲学概念讲成人话，避免堆术语。
+2. 再用《红楼梦》检索片段做例子。
+3. 每个例子尽量标注 passage id 或 concept id。
+4. 如果存在多种理解，说明这是“读法之一”。
+请输出 JSON object，字段必须包括：
+- title: 适合普通读者的小标题
+- plain_explanation: 字符串数组，2-4条，解释核心哲学概念
+- red_mansion_examples: 字符串数组，2-4条，用《红楼梦》片段说明概念如何出现
+- why_it_matters: 一段话，说明这个哲学视角为什么有助于读懂《红楼梦》
+- next_questions: 字符串数组，给初学者继续探索的2-4个问题
+- citation_notes: 字符串数组，说明主要依据哪些 passage id / concept id
+回答语言使用简体中文。"""
+
+    def _compose_explain_title(self, response: dict[str, Any]) -> str:
+        if response["matched_scenes"]:
+            return f"从{response['matched_scenes'][0]['name']}读懂一点中国哲学"
+        if response["concepts"]:
+            return f"用《红楼梦》读懂“{response['concepts'][0]['name']}”"
+        return "用《红楼梦》入门中国哲学"
+
+    def _compose_plain_explanation(self, response: dict[str, Any]) -> list[str]:
+        lines = []
+        for concept in response["concepts"][:3]:
+            lines.append(f"{concept['name']}：可以先简单理解为，{concept['definition']}")
+        if not lines:
+            lines.append("这个问题可以先从人物处境、情节变化和价值冲突入手，不必一开始就掌握复杂术语。")
+        return lines
+
+    def _compose_red_mansion_examples(self, response: dict[str, Any]) -> list[str]:
+        examples = []
+        for passage in response["evidence"][:3]:
+            themes = "、".join(passage.get("themes", [])[:3]) or "相关主题"
+            examples.append(f"{passage['id']}（第{passage['chapter']}回）可作为例子：这段材料涉及{themes}，适合用来理解问题中的哲学意味。")
+        return examples
+
+    def _compose_why_it_matters(self, response: dict[str, Any]) -> str:
+        concept_names = "、".join(concept["name"] for concept in response["concepts"][:3]) or "相关哲学概念"
+        return f"这些概念能帮助读者把《红楼梦》从单纯情节推进，读成关于人生选择、情感执着、家族秩序和盛衰变化的思考。当前检索到的关键词包括：{concept_names}。"
+
+    def _compose_next_questions(self, response: dict[str, Any]) -> list[str]:
+        scene = response["matched_scenes"][0]["name"] if response["matched_scenes"] else "这个情节"
+        return [
+            f"{scene}里哪些地方是原文事实，哪些是后来的哲学解释？",
+            "如果换成儒家、道家、佛教视角，结论会有什么不同？",
+            "这个主题还在哪些章节反复出现？",
+        ]
 
     def _public_passage(self, scored: ScoredItem) -> dict[str, Any]:
         item = scored.item

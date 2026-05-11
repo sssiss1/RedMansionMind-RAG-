@@ -2,7 +2,7 @@
 {"id":"q002","question":"太虚幻境牌坊上的“假作真时真亦假”如何体现真假的哲学？","perspective":"综合","expected_chapters":[1,5],"expected_concepts":["空","齐物"],"notes":"第1回和第5回均有真/假、有/无线索。"}
 {"id":"q003","question":"好了歌如何表现盛衰无常？","perspective":"佛教","expected_chapters":[1],"expected_concepts":["无常","空"],"notes":"第1回好了歌及解注是核心证据。"}
 {"id":"q004","question":"贾宝玉为什么厌恶仕途经济？","perspective":"儒家","expected_chapters":[19],"expected_concepts":["功名责任","礼"],"notes":"第19回袭人与宝玉谈仕途经济是关键。"}
-{"id":"q005","question":"贾宝玉反感功名利禄体现了怎样的道家倾向？","perspective":"道家","expected_chapters":[19],"expected_concepts":["自然","无为"],"notes":"应从反功利、本真、自然角度解释。"}
+{"id":"q005","question":"贾宝玉反感功名利禄体现了怎样的道家倾向？","perspective":"道家","expected_chapters":[19],"expected_concepts":["自然","无为","反功利","逍遥"],"notes":"应从反功利、本真、自然角度解释。"}
 {"id":"q006","question":"林黛玉葬花体现了什么生命观？","perspective":"综合","expected_chapters":[27],"expected_concepts":["无常"],"notes":"第27回葬花是核心证据。"}
 {"id":"q007","question":"黛玉葬花和佛教无常观有什么关系？","perspective":"佛教","expected_chapters":[27],"expected_concepts":["无常","执着"],"notes":"应命中第27回埋香冢、残红、飘零。"}
 {"id":"q008","question":"宝黛共读西厢记体现了情与礼的什么冲突？","perspective":"儒家","expected_chapters":[23],"expected_concepts":["礼"],"notes":"第23回西厢记相关段落。"}
@@ -12,7 +12,7 @@
 {"id":"q012","question":"探春理家体现了什么治理观？","perspective":"儒家","expected_chapters":[55,56],"expected_concepts":["礼","人情练达"],"notes":"探春兴利除弊，家族治理。"}
 {"id":"q013","question":"抄检大观园体现了什么礼法和权力问题？","perspective":"儒家","expected_chapters":[74],"expected_concepts":["礼"],"notes":"第74回抄检大观园。"}
 {"id":"q014","question":"抄检大观园为什么破坏了大观园的自由空间？","perspective":"道家","expected_chapters":[74],"expected_concepts":["自然","无为"],"notes":"从自由、本真与外在权力侵入解释。"}
-{"id":"q015","question":"晴雯被逐体现了什么女性命运问题？","perspective":"综合","expected_chapters":[74,77],"expected_concepts":["礼","无常"],"notes":"晴雯相关情节在第74、77回。"}
+{"id":"q015","question":"晴雯被逐体现了什么女性命运问题？","perspective":"综合","expected_chapters":[74,77],"expected_concepts":["礼","无常","名教","内外之别","家族伦理"],"notes":"晴雯相关情节在第74、77回。"}
 {"id":"q016","question":"芙蓉女儿诔体现了贾宝玉怎样的真情？","perspective":"综合","expected_chapters":[78],"expected_concepts":["执着","无常"],"notes":"第78回芙蓉女儿诔。"}
 {"id":"q017","question":"王熙凤的权术可以从因果角度怎样解释？","perspective":"佛教","expected_chapters":[12,68,69],"expected_concepts":["因果","执着"],"notes":"前80回中凤姐权术相关内容，106回晚景尚未纳入。"}
 {"id":"q018","question":"风月宝鉴体现了什么欲望与警醒？","perspective":"佛教","expected_chapters":[12],"expected_concepts":["执着","因果"],"notes":"第12回风月鉴。"}
@@ -24,7 +24,7 @@
 {"id":"q024","question":"妙玉的清高是否真的接近佛教清净？","perspective":"佛教","expected_chapters":[41,76],"expected_concepts":["执着","空"],"notes":"妙玉相关情节，注意清净与执着的张力。"}
 {"id":"q025","question":"大观园诗社体现了怎样的自由与本真？","perspective":"道家","expected_chapters":[37,38],"expected_concepts":["自然"],"notes":"第37-38回诗社。"}
 {"id":"q026","question":"香菱学诗体现了什么生命自觉？","perspective":"综合","expected_chapters":[48,49],"expected_concepts":["自然"],"notes":"第48-49回香菱学诗。"}
-{"id":"q027","question":"尤三姐之死可以如何理解为礼法与女性命运的冲突？","perspective":"儒家","expected_chapters":[65,66],"expected_concepts":["礼","无常"],"notes":"第65-66回尤三姐。"}
+{"id":"q027","question":"尤三姐之死可以如何理解为礼法与女性命运的冲突？","perspective":"儒家","expected_chapters":[65,66],"expected_concepts":["礼","无常","名教","内外之别","家族伦理"],"notes":"第65-66回尤三姐。"}
 {"id":"q028","question":"尤二姐事件体现了什么欲望、权力与因果？","perspective":"佛教","expected_chapters":[68,69],"expected_concepts":["因果","执着"],"notes":"第68-69回尤二姐。"}
 {"id":"q029","question":"中秋夜宴为什么带有盛衰无常的意味？","perspective":"佛教","expected_chapters":[75,76],"expected_concepts":["无常"],"notes":"第75-76回中秋与凄清气氛。"}
-{"id":"q030","question":"贾迎春误嫁体现了怎样的女性命运和礼法困境？","perspective":"儒家","expected_chapters":[79,80],"expected_concepts":["礼"],"notes":"第79-80回迎春婚姻。"}
+{"id":"q030","question":"贾迎春误嫁体现了怎样的女性命运和礼法困境？","perspective":"儒家","expected_chapters":[79,80],"expected_concepts":["礼","名教","内外之别","家族伦理"],"notes":"第79-80回迎春婚姻。"}

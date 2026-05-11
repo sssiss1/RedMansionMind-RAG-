@@ -30,6 +30,16 @@ class Handler(SimpleHTTPRequestHandler):
                 return
             self._json(ENGINE.answer(question, perspective, use_llm=use_llm))
             return
+        if parsed.path == "/api/explain":
+            params = parse_qs(parsed.query)
+            question = params.get("question", [""])[0].strip()
+            perspective = params.get("perspective", ["综合"])[0].strip()
+            use_llm = params.get("llm", ["1"])[0] in {"1", "true", "yes"}
+            if not question:
+                self._json({"error": "question is required"}, status=400)
+                return
+            self._json(ENGINE.explain(question, perspective, use_llm=use_llm))
+            return
         if parsed.path == "/api/health":
             self._json({"ok": True, "project": "RedMansionMind"})
             return
