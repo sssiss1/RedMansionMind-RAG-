@@ -148,7 +148,7 @@ function PageCharacters() {
         {/* analysis */}
         <div>
           <Eyebrow>summary</Eyebrow>
-          <p style={{ fontFamily:"var(--serif)", fontSize: 17, lineHeight: 1.85, color: "var(--ink-2)", margin: "0 0 32px" }}>
+          <p style={{ fontFamily:"var(--serif)", fontSize: 17, lineHeight: 1.85, color: "var(--ink-2)", margin: "0 0 32px", whiteSpace: "pre-line" }}>
             {ch.summary}
           </p>
 
