@@ -291,7 +291,7 @@ function PageAsk({ presetQuestion, onJumpScene, onJumpConcept, onJumpExplain }) 
               </div>
 
               {/* interpretation */}
-              {thesisTW.done && (
+              {(thesisTW.done || phase === "done") && (
                 <>
                   <Eyebrow num={`${shownSentences.length}/${(apiAnswer || DATA.mockAnswer).interpretation.length}`}>阐释 · interpretation</Eyebrow>
                   <ol style={{ paddingLeft: 0, listStyle: "none", margin: "0 0 36px" }}>
