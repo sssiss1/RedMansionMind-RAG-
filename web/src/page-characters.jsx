@@ -1,6 +1,29 @@
 // page-characters.jsx — 人物哲学画像
 
 function CharPortrait({ ch, h = 420 }) {
+  if (ch.image) {
+    return (
+      <figure style={{
+        margin: 0,
+        height: h,
+        border: ".5px solid var(--rule)",
+        background: "rgba(255,255,255,.35)",
+        overflow: "hidden",
+      }}>
+        <img
+          src={ch.image}
+          alt={ch.imageAlt || `${ch.name}人物画像`}
+          style={{
+            display: "block",
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center 28%",
+          }}
+        />
+      </figure>
+    );
+  }
   if (ch.id === "daiyu") {
     return (
       <svg viewBox="0 0 320 420" xmlns="http://www.w3.org/2000/svg"
@@ -150,7 +173,7 @@ function PageCharacters() {
 
           <Eyebrow>key passages</Eyebrow>
           <div style={{ display:"flex", flexWrap:"wrap", gap: 6 }}>
-            {["hlm_ch003_p012", "hlm_ch027_p008", "hlm_ch054_p003", "hlm_ch078_p015"].map(id => (
+            {(ch.keyPassages || ["hlm_ch003_p012", "hlm_ch027_p008", "hlm_ch054_p003", "hlm_ch078_p015"]).map(id => (
               <CiteChip key={id} kind="passage" id={id} />
             ))}
           </div>

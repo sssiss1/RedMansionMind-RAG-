@@ -605,19 +605,21 @@ class RedMansionRAG:
 
     def _llm_explain_prompt(self) -> str:
         return """你是一位面向普通读者的《红楼梦》哲学科普讲解员，语气像一位温和而博学的朋友。
-你的目标：把一个中国哲学概念讲得让没有任何古典文学/哲学背景的读者也能"啊原来如此"地懂下来，并立刻看到它在《红楼梦》里的具体样子。
+你的目标：不要先讲抽象定义，而是先读懂用户给你的 passages 大段材料，再说明概念如何从这些材料里长出来。
 
 铁律：
 - 只能基于用户提供的 passages 和 concepts。绝不编造原文、章节、人物事件或学术来源。
 - 提到具体情节必须能从给定 passages 推出；如果证据不够直接，要用"可以这样理解"等措辞软化。
+- 每条 plain_explanation 都必须对应至少一个 passage：先说这段里的人物处境/动作/关系，再说概念解释了什么。不能写成脱离文本的词典解释。
+- red_mansion_examples 不要另找例子，只能围绕给定 passages 的大块内容，指出哪一块材料支撑哪一个解释。
 - 不堆术语。每出现一个术语就立刻给一个 6-15 字的口语解释。
 - 不要说"在《红楼梦》中"这种废话开头。直接给画面、给冲突、给情绪。
 - 不抄 passage 原文超过 12 字；用自己的话复述场景。
 
 写作风格：
-- plain_explanation 每条 40-80 字，像在跟人聊天，可用比喻、生活化对照。先一句直觉，再一句修正常见误解。
-- red_mansion_examples 每条 50-100 字，先抛出一个具体画面（谁、在哪、做什么），再点出它如何体现这个概念；末尾用括号标 (第X回) 让读者能去查。
-- why_it_matters 100-160 字，回答"懂了这个概念，再读《红楼梦》会多看见什么"，要带一点情感共鸣，不要空泛。
+- plain_explanation 每条 55-95 字，像在跟人聊天。结构是：这段材料在发生什么 -> 概念帮我们看清什么 -> 避免一个误解。
+- red_mansion_examples 每条 60-110 字，先抛出一个具体画面（谁、在哪、做什么），再点出它如何体现这个概念；末尾标注 passage id 或 (第X回)。
+- why_it_matters 100-160 字，回答"懂了这个概念，再读这些大段材料会多看见什么"，要带一点情感共鸣，不要空泛。
 - next_questions 给 3 个真正能延伸思考的问题，不要"这个主题还在哪些章节出现"这种检索性问题；要的是"如果……会不会……"这种思辨问题。
 
 请输出 JSON object，字段：
@@ -638,9 +640,21 @@ class RedMansionRAG:
 
     def _compose_plain_explanation(self, response: dict[str, Any]) -> list[str]:
         lines = []
-        for concept in response["concepts"][:3]:
+        passages = response["evidence"][:3]
+        for index, concept in enumerate(response["concepts"][:3]):
             definition = concept["definition"].rstrip("。.")
-            lines.append(f"先把「{concept['name']}」拆开看——{definition}。用大白话说，就是它指向一种看待人和事的角度，而不是某种具体的东西。")
+            passage = passages[index % len(passages)] if passages else None
+            if passage:
+                scene = self._passage_scene_sentence(passage)
+                lines.append(
+                    f"{scene}「{concept['name']}」不是给这段文字贴标签，而是提醒我们看见：{definition}。"
+                    "也就是说，概念要解释人物为什么这样进退、忍让或执着，不能离开这块材料空讲。"
+                )
+            else:
+                lines.append(
+                    f"先把「{concept['name']}」放慢看：{definition}。但当前材料不足，"
+                    "所以更稳妥的读法是先回到人物处境、动作和关系，再判断它是否真的能解释这段文字。"
+                )
         if not lines:
             lines.append("这个问题没有现成的术语对应，可以先从人物处境、情节变化和价值冲突切入，慢慢摸到背后的思考方式。")
         return lines
@@ -648,20 +662,22 @@ class RedMansionRAG:
     def _compose_red_mansion_examples(self, response: dict[str, Any]) -> list[str]:
         examples = []
         for passage in response["evidence"][:3]:
-            chars = "、".join(passage.get("characters", [])[:2])
             themes = "、".join(passage.get("themes", [])[:2])
-            snippet = (passage.get("text") or "").strip().replace("\n", "")
-            if len(snippet) > 36:
-                snippet = snippet[:36] + "…"
-            who = f"{chars}" if chars else "书中人物"
             tag = f"（关键词：{themes}）" if themes else ""
             examples.append(
-                f"第{passage['chapter']}回 · {who} 的一段——"
-                f"“{snippet}”。这里能看到上面那个概念是怎么落到具体场景里的{tag}。"
+                f"{self._passage_scene_sentence(passage)}这不是另举一个例子，而是直接贴着 {passage['id']} "
+                f"这块材料看：概念应当解释这里的行动、关系和压力怎么连在一起{tag}。"
             )
         if not examples:
             examples.append("当前检索到的片段较少，可以换一个更具体的人物或情节试试。")
         return examples
+
+    def _passage_scene_sentence(self, passage: dict[str, Any]) -> str:
+        chars = "、".join(passage.get("characters", [])[:2])
+        who = chars if chars else "书中人物"
+        text = (passage.get("text") or "").strip().replace("\n", "")
+        snippet = text[:44] + "…" if len(text) > 44 else text
+        return f"第{passage['chapter']}回里，{who}这一大段先给出的是“{snippet}”这样的处境。"
 
     def _compose_why_it_matters(self, response: dict[str, Any]) -> str:
         concept_names = "、".join(concept["name"] for concept in response["concepts"][:3])

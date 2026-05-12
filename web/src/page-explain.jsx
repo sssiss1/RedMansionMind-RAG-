@@ -47,11 +47,11 @@ function PageExplain() {
         <div>
           <Eyebrow>explain mode · /api/explain</Eyebrow>
           <h1 className="h-display" style={{ fontSize: 44 }}>
-            <span className="zh">把术语，讲成大白话。</span>
+            <span className="zh">让概念，贴回原文场景。</span>
           </h1>
         </div>
         <div style={{ fontFamily:"var(--mono)", fontSize: 11, color:"var(--ink-faint)", letterSpacing:".06em", textAlign:"right", maxWidth: 260 }}>
-          适用于不太熟悉儒释道概念的<br/>读者，给出更口语化的阐释
+          先看检索到的大段材料<br/>再把概念讲成可感的解释
           <label style={{ display:"flex", alignItems:"center", justifyContent:"flex-end", gap: 6, marginTop: 8, cursor:"pointer" }}>
             <input type="checkbox" checked={llmOn} onChange={e => setLlmOn(e.target.checked)} style={{ accentColor: "var(--cinnabar)" }}/>
             <span>启用 LLM · deepseek-chat</span>
@@ -98,7 +98,7 @@ function PageExplain() {
               {result.explain_title || result.question}
             </h2>
 
-            <Eyebrow>plain · 一句话理解</Eyebrow>
+            <Eyebrow>plain · 概念怎样贴住材料</Eyebrow>
             <ol style={{ paddingLeft: 0, listStyle: "none", margin: "0 0 36px" }}>
               {(result.plain_explanation || []).map((t,i) => (
                 <li key={i} style={{ display:"flex", gap: 16, padding: "10px 0", borderBottom: ".5px solid var(--rule)", fontSize: 15, lineHeight: 1.85 }}>
@@ -108,7 +108,7 @@ function PageExplain() {
               ))}
             </ol>
 
-            <Eyebrow>in red mansion · 放回小说里</Eyebrow>
+            <Eyebrow>in red mansion · 对着大段原文看</Eyebrow>
             <div style={{ display:"flex", flexDirection:"column", gap: 12, marginBottom: 32 }}>
               {(result.red_mansion_examples || []).map((ex,i) => (
                 <div key={i} style={{ padding: "14px 18px", background: "rgba(255,255,255,.45)", border: ".5px solid var(--rule)" }}>
