@@ -44,10 +44,14 @@ window.RMM_DATA = {
     { id: "baoyu", name: "贾宝玉", subtitle: "情之主、性灵之子",
       schools: { 佛教: 35, 道家: 40, 儒家: 5, 性灵: 90 },
       tags: ["真性情", "泛爱", "反仕途"],
+      image: "/assets/baoyu-portrait.jpg",
+      imageAlt: "贾宝玉提灯立于贾府之中，颈戴通灵宝玉",
       summary: "宝玉之哲学，以晚明性灵为底色，掺以佛道之疏离。其于人间则极重情，于功名则极轻；其结局之出家，是色空之归。" },
     { id: "daiyu", name: "林黛玉", subtitle: "无常之诗人",
       schools: { 佛教: 50, 道家: 35, 儒家: 5, 性灵: 70 },
       tags: ["生命意识", "孤洁", "诗心"],
+      image: "/assets/daiyu-portrait.jpg",
+      imageAlt: "林黛玉荷锄携篮葬花，落英纷飞",
       summary: "黛玉以诗写无常，葬花一节集生命意识之大成。其前世为绛珠仙草，泪尽而逝，是为缘起。" },
     { id: "baochai", name: "薛宝钗", subtitle: "儒家世故之典范",
       schools: { 佛教: 10, 道家: 5, 儒家: 80, 性灵: 15 },
@@ -59,6 +63,8 @@ window.RMM_DATA = {
     { id: "miaoyu", name: "妙玉", subtitle: "槛外之孤洁",
       schools: { 佛教: 60, 道家: 30, 儒家: 0, 性灵: 30 },
       tags: ["出世", "洁癖", "禅意"],
+      image: "/assets/miaoyu-portrait.jpg",
+      imageAlt: "妙玉白纱罩首，执拂尘立于松竹之间",
       summary: "妙玉栖于栊翠庵，雪水煎茶，自署槛外人。其孤高与终陷淖泥，是出世与红尘之张力。" },
     { id: "tanchun", name: "贾探春", subtitle: "理性之治家者",
       schools: { 佛教: 5, 道家: 10, 儒家: 70, 性灵: 25 },
@@ -117,27 +123,27 @@ window.RMM_DATA = {
     {
       q: "你很喜欢的一家店（咖啡馆、书店、小馆子）宣布要关门了。你会——",
       options: [
-        { text: "专门去最后一次，拍照、写点什么，认真告别", weights: { daiyu: 3, baoyu: 1 } },
-        { text: "惋惜一下，很快接受了，好东西总会消失", weights: { tanchun: 2, baochai: 2 } },
-        { text: "感慨很久，觉得这就是无常，反而有点释然", weights: { miaoyu: 3, daiyu: 1 } },
-        { text: "拉上朋友一起去最后一次，热热闹闹地送别", weights: { baoyu: 3, qingwen: 1 } },
+        { text: "专门去最后一次，拍照、写点什么，认真告别", weights: { daiyu: 3, baoyu: 1, keqing: 1 } },
+        { text: "惋惜一下，很快接受了，好东西总会消失", weights: { tanchun: 2, baochai: 2, xifeng: 1, wangfuren: 1 } },
+        { text: "感慨很久，觉得这就是无常，反而有点释然", weights: { miaoyu: 3, daiyu: 1, xichun: 2 } },
+        { text: "拉上朋友一起去最后一次，热热闹闹地送别", weights: { baoyu: 3, qingwen: 1, xiangyun: 2 } },
       ]
     },
     {
       q: "家人又催你走一条\"稳妥\"的路——考公、考研、进大厂、早点结婚。你最可能的反应是——",
       options: [
         { text: "直接拒绝，那条路不是你想走的，说多了只会更烦", weights: { baoyu: 3, qingwen: 1 } },
-        { text: "觉得他们说得有道理，认真考虑一下也无妨", weights: { baochai: 3, tanchun: 1 } },
-        { text: "表面应付，心里另有打算，时候到了再说", weights: { tanchun: 2, baochai: 1 } },
-        { text: "早就把自己的生活和他们的期待分得很清楚了", weights: { miaoyu: 3 } },
+        { text: "觉得他们说得有道理，认真考虑一下也无妨", weights: { baochai: 3, tanchun: 1, xiren: 2, wangfuren: 1 } },
+        { text: "表面应付，心里另有打算，时候到了再说", weights: { tanchun: 2, baochai: 1, xifeng: 2 } },
+        { text: "早就把自己的生活和他们的期待分得很清楚了", weights: { miaoyu: 3, xichun: 2 } },
       ]
     },
     {
       q: "对你而言，最难割舍的是——",
       options: [
-        { text: "一段未尽之情", weights: { baoyu: 3, daiyu: 2 } },
-        { text: "门第与家声", weights: { baochai: 3 } },
-        { text: "自己的一点傲骨", weights: { qingwen: 3, miaoyu: 1 } },
+        { text: "一段未尽之情", weights: { baoyu: 3, daiyu: 2, keqing: 1 } },
+        { text: "门第与家声", weights: { baochai: 3, wangfuren: 2 } },
+        { text: "自己的一点傲骨", weights: { qingwen: 3, miaoyu: 1, xichun: 1 } },
         { text: "一卷未读完的书", weights: { tanchun: 2, baochai: 1 } },
       ]
     },
@@ -145,153 +151,153 @@ window.RMM_DATA = {
       q: "若大厦将倾，你最先做的事是——",
       options: [
         { text: "把所有人的诗稿好好收起来", weights: { daiyu: 3, baoyu: 1 } },
-        { text: "立刻盘点账目，查弊兴利", weights: { tanchun: 3 } },
-        { text: "焚香诵经，了无挂碍", weights: { miaoyu: 3 } },
-        { text: "稳住人心，劝家人勿乱", weights: { baochai: 3 } },
+        { text: "立刻盘点账目，查弊兴利", weights: { tanchun: 3, xifeng: 2 } },
+        { text: "焚香诵经，了无挂碍", weights: { miaoyu: 3, wangfuren: 2, xichun: 1 } },
+        { text: "稳住人心，劝家人勿乱", weights: { baochai: 3, xiren: 2 } },
       ]
     },
     {
       q: "世人都说神仙好。你最认同其中哪一句？",
       options: [
-        { text: "惟有功名忘不了——古今将相在何方？", weights: { tanchun: 2, baochai: 1 } },
-        { text: "惟有金银忘不了——终朝只恨聚无多", weights: { baochai: 2 } },
-        { text: "惟有娇妻忘不了——君生日日说恩情", weights: { baoyu: 3, qingwen: 1 } },
-        { text: "惟有儿孙忘不了——痴心父母古来多", weights: { baochai: 1, baoyu: 1, daiyu: 1, miaoyu: 1, tanchun: 1, qingwen: 1 } },
+        { text: "惟有功名忘不了——古今将相在何方？", weights: { tanchun: 2, baochai: 1, xifeng: 1 } },
+        { text: "惟有金银忘不了——终朝只恨聚无多", weights: { baochai: 2, xifeng: 3 } },
+        { text: "惟有娇妻忘不了——君生日日说恩情", weights: { baoyu: 3, qingwen: 1, keqing: 1 } },
+        { text: "惟有儿孙忘不了——痴心父母古来多", weights: { wangfuren: 3, baochai: 1, xiren: 1 } },
       ]
     },
     {
       q: "你在社交媒体上发东西，通常是——",
       options: [
-        { text: "随手记录当下，不在意别人怎么看", weights: { baoyu: 3, qingwen: 1 } },
-        { text: "有时候写了很长，发出去之前又全删了", weights: { daiyu: 3, baoyu: 1 } },
-        { text: "精心排版选图，确保整体感觉对了再发", weights: { baochai: 3, tanchun: 1 } },
-        { text: "基本不发，或只在很小的圈子里可见", weights: { miaoyu: 3, daiyu: 1 } },
+        { text: "随手记录当下，不在意别人怎么看", weights: { baoyu: 3, qingwen: 1, xiangyun: 3 } },
+        { text: "有时候写了很长，发出去之前又全删了", weights: { daiyu: 3, baoyu: 1, keqing: 1 } },
+        { text: "精心排版选图，确保整体感觉对了再发", weights: { baochai: 3, tanchun: 1, xiren: 1 } },
+        { text: "基本不发，或只在很小的圈子里可见", weights: { miaoyu: 3, daiyu: 1, xichun: 2 } },
       ]
     },
     {
       q: "若有人当面说了你一句重话，你最可能的反应是——",
       options: [
-        { text: "当下就顶回去，哪怕气到说不出话也绝不咽下这口气", weights: { qingwen: 3, baoyu: 1 } },
-        { text: "心里难受很久，反复回想，想弄清楚那话有没有道理", weights: { daiyu: 3 } },
-        { text: "当场不动声色，事后再寻适当时机处理", weights: { baochai: 3, tanchun: 1 } },
-        { text: "觉得对方着相了，这种话不值一应", weights: { miaoyu: 3 } },
+        { text: "当下就顶回去，哪怕气到说不出话也绝不咽下这口气", weights: { qingwen: 3, baoyu: 1, xifeng: 1 } },
+        { text: "心里难受很久，反复回想，想弄清楚那话有没有道理", weights: { daiyu: 3, xiren: 1 } },
+        { text: "当场不动声色，事后再寻适当时机处理", weights: { baochai: 3, tanchun: 1, xifeng: 2 } },
+        { text: "觉得对方着相了，这种话不值一应", weights: { miaoyu: 3, xichun: 2 } },
       ]
     },
     {
       q: "朋友借给你一本书，还回去时发现书脊不小心折了。你会——",
       options: [
-        { text: "直接坦白，坏了就坏了，情谊还在", weights: { baoyu: 3, qingwen: 1 } },
+        { text: "直接坦白，坏了就坏了，情谊还在", weights: { baoyu: 3, qingwen: 1, xiangyun: 1 } },
         { text: "心里很难过，觉得辜负了对方的信任", weights: { daiyu: 3, baoyu: 1 } },
-        { text: "买一本新的还回去，把这件事翻篇", weights: { baochai: 3 } },
-        { text: "书总会旧的，折了书脊也是一种阅读的痕迹", weights: { tanchun: 2, miaoyu: 1 } },
+        { text: "买一本新的还回去，把这件事翻篇", weights: { baochai: 3, xiren: 2 } },
+        { text: "书总会旧的，折了书脊也是一种阅读的痕迹", weights: { tanchun: 2, miaoyu: 1, xiangyun: 1 } },
       ]
     },
     {
       q: "你最理想的住所是——",
       options: [
-        { text: "杂乱有序，到处是书和没收起来的小物件，阳台种着乱七八糟的植物", weights: { baoyu: 3 } },
-        { text: "素净简洁，只放最重要的东西，进门就觉得安静", weights: { daiyu: 3, miaoyu: 1 } },
-        { text: "整洁有条理，每件东西都有自己的位置，来了客人也不失礼", weights: { baochai: 3 } },
-        { text: "干净到极致，最好外人很难进来", weights: { miaoyu: 3, daiyu: 1 } },
+        { text: "杂乱有序，到处是书和没收起来的小物件，阳台种着乱七八糟的植物", weights: { baoyu: 3, xiangyun: 2 } },
+        { text: "素净简洁，只放最重要的东西，进门就觉得安静", weights: { daiyu: 3, miaoyu: 1, xichun: 1 } },
+        { text: "整洁有条理，每件东西都有自己的位置，来了客人也不失礼", weights: { baochai: 3, xiren: 2, wangfuren: 1 } },
+        { text: "干净到极致，最好外人很难进来", weights: { miaoyu: 3, daiyu: 1, xichun: 2 } },
       ]
     },
     {
       q: "你做了一件自己觉得挺不错的事（项目、作品、安排），你最在意的是——",
       options: [
         { text: "做的过程是不是真的投入，有没有对得起自己", weights: { baoyu: 3, daiyu: 2 } },
-        { text: "有没有人真的理解你的用心，而不只是说好", weights: { daiyu: 3, baoyu: 1 } },
-        { text: "质量是否过关，有没有明显的纰漏", weights: { baochai: 3, tanchun: 1 } },
-        { text: "留着自己回味就好，不需要别人来评价", weights: { miaoyu: 3, qingwen: 1 } },
+        { text: "有没有人真的理解你的用心，而不只是说好", weights: { daiyu: 3, baoyu: 1, keqing: 1 } },
+        { text: "质量是否过关，有没有明显的纰漏", weights: { baochai: 3, tanchun: 1, xifeng: 1 } },
+        { text: "留着自己回味就好，不需要别人来评价", weights: { miaoyu: 3, qingwen: 1, xichun: 2 } },
       ]
     },
     {
       q: "有场你不太想去的聚会（同事饭局、远亲聚会、同学婚宴），你会——",
       options: [
-        { text: "找个理由推掉，能不去就不去", weights: { daiyu: 2, miaoyu: 2 } },
-        { text: "去，但提前找好借口，准备早点走", weights: { baoyu: 3 } },
-        { text: "去，而且认真准备，确保大家都过得不错", weights: { baochai: 3 } },
-        { text: "去了，在角落里观察所有人，暗自把大家都分析一遍", weights: { tanchun: 2, miaoyu: 1 } },
+        { text: "找个理由推掉，能不去就不去", weights: { daiyu: 2, miaoyu: 2, xichun: 2 } },
+        { text: "去，但提前找好借口，准备早点走", weights: { baoyu: 3, xiangyun: 1 } },
+        { text: "去，而且认真准备，确保大家都过得不错", weights: { baochai: 3, xiren: 3, wangfuren: 2 } },
+        { text: "去了，在角落里观察所有人，暗自把大家都分析一遍", weights: { tanchun: 2, miaoyu: 1, xifeng: 2 } },
       ]
     },
     {
       q: "身边一个好友突然离开了（出嫁或远行），你会——",
       options: [
-        { text: "难受很久，甚至写诗写文来祭奠那段情谊", weights: { baoyu: 3, daiyu: 2 } },
-        { text: "悄悄哭了，但努力不让别人看见", weights: { daiyu: 3 } },
-        { text: "心里悲伤，但依然维持日常，人去了还要继续", weights: { baochai: 3, tanchun: 1 } },
-        { text: "觉得聚散是常，把悲伤放在心底便是", weights: { miaoyu: 2, tanchun: 1 } },
+        { text: "难受很久，甚至写诗写文来祭奠那段情谊", weights: { baoyu: 3, daiyu: 2, keqing: 1 } },
+        { text: "悄悄哭了，但努力不让别人看见", weights: { daiyu: 3, xiren: 2 } },
+        { text: "心里悲伤，但依然维持日常，人去了还要继续", weights: { baochai: 3, tanchun: 1, wangfuren: 2 } },
+        { text: "觉得聚散是常，把悲伤放在心底便是", weights: { miaoyu: 2, tanchun: 1, xichun: 3 } },
       ]
     },
     {
       q: "你认为，一个人最不应该妥协的是——",
       options: [
-        { text: "对自己真实感受的诚实", weights: { baoyu: 3, qingwen: 2 } },
-        { text: "对审美与精神标准的坚持", weights: { miaoyu: 3, daiyu: 1 } },
-        { text: "对公平和规则的追求", weights: { tanchun: 3 } },
-        { text: "对亲近之人的情分与承诺", weights: { daiyu: 2, baoyu: 1 } },
+        { text: "对自己真实感受的诚实", weights: { baoyu: 3, qingwen: 2, xiangyun: 1 } },
+        { text: "对审美与精神标准的坚持", weights: { miaoyu: 3, daiyu: 1, xichun: 1 } },
+        { text: "对公平和规则的追求", weights: { tanchun: 3, xifeng: 1 } },
+        { text: "对亲近之人的情分与承诺", weights: { daiyu: 2, baoyu: 1, xiren: 2, wangfuren: 1 } },
       ]
     },
     {
       q: "真与礼发生冲突的时候，你会——",
       options: [
-        { text: "真比礼更重要，礼不过是一件衣服", weights: { baoyu: 3, qingwen: 2 } },
-        { text: "二者可以周全，只是需要找到方式", weights: { baochai: 3 } },
-        { text: "公开场合守礼，私下保留真", weights: { tanchun: 2, baochai: 1 } },
-        { text: "礼是别人的标准，与我无关", weights: { miaoyu: 3, qingwen: 1 } },
+        { text: "真比礼更重要，礼不过是一件衣服", weights: { baoyu: 3, qingwen: 2, xiangyun: 1 } },
+        { text: "二者可以周全，只是需要找到方式", weights: { baochai: 3, xiren: 2, wangfuren: 1 } },
+        { text: "公开场合守礼，私下保留真", weights: { tanchun: 2, baochai: 1, xifeng: 2 } },
+        { text: "礼是别人的标准，与我无关", weights: { miaoyu: 3, qingwen: 1, xichun: 2 } },
       ]
     },
     {
       q: "朋友突然发消息：\"现在出来吗，XX地方超美的\"。你——",
       options: [
-        { text: "立刻出门，就喜欢这种说走就走", weights: { baoyu: 3, qingwen: 1 } },
-        { text: "心里想去，但担心太远太累，犹豫半天还是去了", weights: { daiyu: 2, baoyu: 1 } },
-        { text: "先问清楚去哪、几点回，合适就去", weights: { baochai: 3 } },
-        { text: "婉拒，一个人待着比临时拼凑的出行更自在", weights: { miaoyu: 3, daiyu: 1 } },
+        { text: "立刻出门，就喜欢这种说走就走", weights: { baoyu: 3, qingwen: 1, xiangyun: 3 } },
+        { text: "心里想去，但担心太远太累，犹豫半天还是去了", weights: { daiyu: 2, baoyu: 1, xiren: 1 } },
+        { text: "先问清楚去哪、几点回，合适就去", weights: { baochai: 3, wangfuren: 1 } },
+        { text: "婉拒，一个人待着比临时拼凑的出行更自在", weights: { miaoyu: 3, daiyu: 1, xichun: 1 } },
       ]
     },
     {
       q: "有人请你帮一个你看不太上的人说好话，你——",
       options: [
-        { text: "直接说你不擅长说这种话，让对方另请高明", weights: { qingwen: 3, baoyu: 1 } },
-        { text: "斟酌一下措辞，能帮就帮，不点破也不撒谎", weights: { baochai: 3 } },
+        { text: "直接说你不擅长说这种话，让对方另请高明", weights: { qingwen: 3, baoyu: 1, xiangyun: 1 } },
+        { text: "斟酌一下措辞，能帮就帮，不点破也不撒谎", weights: { baochai: 3, xiren: 2, xifeng: 1 } },
         { text: "问清楚情况，合理就帮，无理就拒绝", weights: { tanchun: 3 } },
-        { text: "觉得这种事与你无关，礼貌推脱", weights: { miaoyu: 3 } },
+        { text: "觉得这种事与你无关，礼貌推脱", weights: { miaoyu: 3, xichun: 2 } },
       ]
     },
     {
       q: "一场很热闹的聚会结束了，回家路上，你心里最先浮现的念头是——",
       options: [
-        { text: "今天真好，人和人在一起就是不一样", weights: { baoyu: 3 } },
-        { text: "热闹散了，有点空，越开心越觉得什么东西是短暂的", weights: { daiyu: 3, miaoyu: 1 } },
-        { text: "还好，氛围不错，大家都挺自在的", weights: { baochai: 3 } },
-        { text: "复盘了一遍，觉得某些地方本来可以处理得更好", weights: { tanchun: 3 } },
+        { text: "今天真好，人和人在一起就是不一样", weights: { baoyu: 3, xiangyun: 3 } },
+        { text: "热闹散了，有点空，越开心越觉得什么东西是短暂的", weights: { daiyu: 3, miaoyu: 1, keqing: 1 } },
+        { text: "还好，氛围不错，大家都挺自在的", weights: { baochai: 3, xiren: 1 } },
+        { text: "复盘了一遍，觉得某些地方本来可以处理得更好", weights: { tanchun: 3, xifeng: 2 } },
       ]
     },
     {
       q: "你最认同哪一种人生态度？",
       options: [
-        { text: "尽情去爱，尽情去活，哪怕转眼离散", weights: { baoyu: 3, daiyu: 2 } },
-        { text: "把日子过得稳妥，少一些意外，才能照顾更多人", weights: { baochai: 3 } },
-        { text: "在力所能及的地方做实事，让事情变好", weights: { tanchun: 3 } },
-        { text: "保持内心的干净，比融入世界更重要", weights: { miaoyu: 3, qingwen: 1 } },
+        { text: "尽情去爱，尽情去活，哪怕转眼离散", weights: { baoyu: 3, daiyu: 2, xiangyun: 1 } },
+        { text: "把日子过得稳妥，少一些意外，才能照顾更多人", weights: { baochai: 3, xiren: 2, wangfuren: 2 } },
+        { text: "在力所能及的地方做实事，让事情变好", weights: { tanchun: 3, xifeng: 1 } },
+        { text: "保持内心的干净，比融入世界更重要", weights: { miaoyu: 3, qingwen: 1, xichun: 2 } },
       ]
     },
     {
       q: "你最难接受的告别方式是——",
       options: [
         { text: "还没说完话，人就走了", weights: { baoyu: 3, daiyu: 2 } },
-        { text: "委委屈屈地走，不被人看见", weights: { daiyu: 3, qingwen: 1 } },
-        { text: "热热闹闹地被送走，像一场表演", weights: { miaoyu: 3, qingwen: 1 } },
-        { text: "知道结局还是一步步走向它，无力阻拦", weights: { tanchun: 2, baochai: 1 } },
+        { text: "委委屈屈地走，不被人看见", weights: { daiyu: 3, qingwen: 1, xiren: 1 } },
+        { text: "热热闹闹地被送走，像一场表演", weights: { miaoyu: 3, qingwen: 1, keqing: 2 } },
+        { text: "知道结局还是一步步走向它，无力阻拦", weights: { tanchun: 2, baochai: 1, keqing: 2, xichun: 1 } },
       ]
     },
     {
       q: "你理想中的人生，是——",
       options: [
-        { text: "有人能真正懂你，能为那份真情活过", weights: { baoyu: 3, daiyu: 2 } },
-        { text: "在世间走了一遭，没有亏欠过自己的标准", weights: { qingwen: 3, miaoyu: 1 } },
-        { text: "稳稳当当，没有大的意外，陪伴着在乎的人", weights: { baochai: 3 } },
-        { text: "做了一些真正有用的事，改变了什么", weights: { tanchun: 3 } },
+        { text: "有人能真正懂你，能为那份真情活过", weights: { baoyu: 3, daiyu: 2, keqing: 1 } },
+        { text: "在世间走了一遭，没有亏欠过自己的标准", weights: { qingwen: 3, miaoyu: 1, xichun: 1 } },
+        { text: "稳稳当当，没有大的意外，陪伴着在乎的人", weights: { baochai: 3, xiren: 2, wangfuren: 2 } },
+        { text: "做了一些真正有用的事，改变了什么", weights: { tanchun: 3, xifeng: 2 } },
       ]
     },
   ],
