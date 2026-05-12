@@ -16,6 +16,7 @@ function PageExplain() {
     if (conceptId) setTopicId(conceptId);
     try {
       const params = new URLSearchParams({ question: questionText, perspective: "综合", llm: llmOn ? "1" : "0" });
+      if (conceptId) params.set("concept_id", conceptId);
       const resp = await fetch(`/api/explain?${params}`);
       const data = await resp.json();
       setResult(data);

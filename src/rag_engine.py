@@ -215,8 +215,44 @@ class RedMansionRAG:
 
         return response
 
-    def explain(self, question: str, perspective: str = "综合", use_llm: bool = True) -> dict[str, Any]:
-        response = self.answer(question, perspective, use_llm=False)
+    def explain(
+        self,
+        question: str,
+        perspective: str = "综合",
+        use_llm: bool = True,
+        concept_id: str | None = None,
+    ) -> dict[str, Any]:
+        pinned = next((c for c in self.concepts if c.get("id") == concept_id), None) if concept_id else None
+        if pinned:
+            # Enrich the question so BM25 actually has tokens to work with
+            # (e.g. user clicked "苦" but single-char tokens are dropped).
+            enrichment = " ".join([
+                pinned.get("name", ""),
+                " ".join(pinned.get("keywords", []) or []),
+                " ".join(pinned.get("related_themes", []) or []),
+            ]).strip()
+            effective_question = f"{question} {enrichment}".strip() if enrichment else question
+        else:
+            effective_question = question
+
+        response = self.answer(effective_question, perspective, use_llm=False)
+        # Keep the original user-facing question.
+        response["question"] = question
+
+        if pinned:
+            pinned_public = {
+                "id": pinned["id"],
+                "tradition": pinned.get("tradition", ""),
+                "name": pinned.get("name", ""),
+                "definition": pinned.get("definition", ""),
+                "keywords": pinned.get("keywords", []),
+                "score": 999.0,
+                "matched_terms": [pinned.get("name", "")],
+            }
+            existing = [c for c in response["concepts"] if c.get("id") != pinned["id"]]
+            response["concepts"] = [pinned_public] + existing[:2]
+            response["pinned_concept_id"] = pinned["id"]
+
         response["mode"] = "explain"
         response["explain_title"] = self._compose_explain_title(response)
         response["plain_explanation"] = self._compose_plain_explanation(response)
