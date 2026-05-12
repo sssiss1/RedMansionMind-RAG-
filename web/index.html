@@ -7,14 +7,11 @@
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <main class="shell">
-      <section class="workspace">
+    <div class="shell">
+      <div class="workspace">
         <aside class="sidebar">
-          <div>
-            <p class="kicker">RedMansionMind</p>
-            <h1>红楼梦哲学笺</h1>
-            <p class="subtitle">以原文、义理与引文为线索，重读情与空。</p>
-          </div>
+          <p class="kicker">RedMansionMind</p>
+          <h1>红楼梦哲学笺</h1>
 
           <div class="control">
             <span>视角</span>
@@ -31,8 +28,6 @@
             <span>启用 LLM 生成</span>
           </label>
 
-          <button type="button" id="quiz-button" class="quiz-entry">红楼价值观测试</button>
-
           <div class="examples">
             <span>样例问题</span>
             <button data-question="贾宝玉为什么厌恶仕途经济？">贾宝玉为什么厌恶仕途经济？</button>
@@ -42,21 +37,18 @@
           </div>
         </aside>
 
-        <section class="main-panel">
+        <main class="main-panel">
           <form id="ask-form" class="ask-box">
             <textarea id="question" rows="3" placeholder="输入一个关于《红楼梦》和中国哲学的问题">贾宝玉为什么厌恶仕途经济？</textarea>
-            <div class="action-stack">
-              <button type="submit" data-action="analyze">生成阐释</button>
-              <button type="button" id="explain-button" class="secondary-action">科普解释</button>
-            </div>
+            <button type="submit">生成阐释</button>
           </form>
 
           <section id="answer" class="answer">
-            <div class="empty">正在等待问题。</div>
+            <div class="empty">输入问题，开始探索。</div>
           </section>
-        </section>
-      </section>
-    </main>
+        </main>
+      </div>
+    </div>
     <script src="/app.js"></script>
   </body>
 </html>
