@@ -568,22 +568,30 @@ class RedMansionRAG:
 回答语言使用简体中文。"""
 
     def _llm_explain_prompt(self) -> str:
-        return """你是一个面向普通读者的《红楼梦》哲学科普讲解员。
-用户可能不了解中国哲学。请用清楚、温和、少术语的语言解释。
-只能根据用户提供的 passages 和 concepts 回答，不要编造未提供的原文、章节或学术来源。
-要求：
-1. 先把哲学概念讲成人话，避免堆术语。
-2. 再用《红楼梦》检索片段做例子。
-3. 每个例子尽量标注 passage id 或 concept id。
-4. 如果存在多种理解，说明这是“读法之一”。
-请输出 JSON object，字段必须包括：
-- title: 适合普通读者的小标题
-- plain_explanation: 字符串数组，2-4条，解释核心哲学概念
-- red_mansion_examples: 字符串数组，2-4条，用《红楼梦》片段说明概念如何出现
-- why_it_matters: 一段话，说明这个哲学视角为什么有助于读懂《红楼梦》
-- next_questions: 字符串数组，给初学者继续探索的2-4个问题
-- citation_notes: 字符串数组，说明主要依据哪些 passage id / concept id
-回答语言使用简体中文。"""
+        return """你是一位面向普通读者的《红楼梦》哲学科普讲解员，语气像一位温和而博学的朋友。
+你的目标：把一个中国哲学概念讲得让没有任何古典文学/哲学背景的读者也能"啊原来如此"地懂下来，并立刻看到它在《红楼梦》里的具体样子。
+
+铁律：
+- 只能基于用户提供的 passages 和 concepts。绝不编造原文、章节、人物事件或学术来源。
+- 提到具体情节必须能从给定 passages 推出；如果证据不够直接，要用"可以这样理解"等措辞软化。
+- 不堆术语。每出现一个术语就立刻给一个 6-15 字的口语解释。
+- 不要说"在《红楼梦》中"这种废话开头。直接给画面、给冲突、给情绪。
+- 不抄 passage 原文超过 12 字；用自己的话复述场景。
+
+写作风格：
+- plain_explanation 每条 40-80 字，像在跟人聊天，可用比喻、生活化对照。先一句直觉，再一句修正常见误解。
+- red_mansion_examples 每条 50-100 字，先抛出一个具体画面（谁、在哪、做什么），再点出它如何体现这个概念；末尾用括号标 (第X回) 让读者能去查。
+- why_it_matters 100-160 字，回答"懂了这个概念，再读《红楼梦》会多看见什么"，要带一点情感共鸣，不要空泛。
+- next_questions 给 3 个真正能延伸思考的问题，不要"这个主题还在哪些章节出现"这种检索性问题；要的是"如果……会不会……"这种思辨问题。
+
+请输出 JSON object，字段：
+- title: 12-22 字的小标题，像一句邀请，不要套"浅析/试论"
+- plain_explanation: 字符串数组，2-3 条
+- red_mansion_examples: 字符串数组，2-3 条
+- why_it_matters: 一段话（单字符串）
+- next_questions: 字符串数组，3 条
+- citation_notes: 字符串数组，简短说明每条结论主要依据哪几个 passage id / concept id
+回答语言：简体中文。"""
 
     def _compose_explain_title(self, response: dict[str, Any]) -> str:
         if response["matched_scenes"]:
@@ -595,29 +603,60 @@ class RedMansionRAG:
     def _compose_plain_explanation(self, response: dict[str, Any]) -> list[str]:
         lines = []
         for concept in response["concepts"][:3]:
-            lines.append(f"{concept['name']}：可以先简单理解为，{concept['definition']}")
+            definition = concept["definition"].rstrip("。.")
+            lines.append(f"先把「{concept['name']}」拆开看——{definition}。用大白话说，就是它指向一种看待人和事的角度，而不是某种具体的东西。")
         if not lines:
-            lines.append("这个问题可以先从人物处境、情节变化和价值冲突入手，不必一开始就掌握复杂术语。")
+            lines.append("这个问题没有现成的术语对应，可以先从人物处境、情节变化和价值冲突切入，慢慢摸到背后的思考方式。")
         return lines
 
     def _compose_red_mansion_examples(self, response: dict[str, Any]) -> list[str]:
         examples = []
         for passage in response["evidence"][:3]:
-            themes = "、".join(passage.get("themes", [])[:3]) or "相关主题"
-            examples.append(f"{passage['id']}（第{passage['chapter']}回）可作为例子：这段材料涉及{themes}，适合用来理解问题中的哲学意味。")
+            chars = "、".join(passage.get("characters", [])[:2])
+            themes = "、".join(passage.get("themes", [])[:2])
+            snippet = (passage.get("text") or "").strip().replace("\n", "")
+            if len(snippet) > 36:
+                snippet = snippet[:36] + "…"
+            who = f"{chars}" if chars else "书中人物"
+            tag = f"（关键词：{themes}）" if themes else ""
+            examples.append(
+                f"第{passage['chapter']}回 · {who} 的一段——"
+                f"“{snippet}”。这里能看到上面那个概念是怎么落到具体场景里的{tag}。"
+            )
+        if not examples:
+            examples.append("当前检索到的片段较少，可以换一个更具体的人物或情节试试。")
         return examples
 
     def _compose_why_it_matters(self, response: dict[str, Any]) -> str:
-        concept_names = "、".join(concept["name"] for concept in response["concepts"][:3]) or "相关哲学概念"
-        return f"这些概念能帮助读者把《红楼梦》从单纯情节推进，读成关于人生选择、情感执着、家族秩序和盛衰变化的思考。当前检索到的关键词包括：{concept_names}。"
+        concept_names = "、".join(concept["name"] for concept in response["concepts"][:3])
+        if concept_names:
+            return (
+                f"理解了「{concept_names}」之后再读《红楼梦》，"
+                "你会发现作者并不是单纯在写一个家族的兴衰故事——他在用极细的笔触，"
+                "把这些哲学命题铺陈成日常的吃饭、做诗、闹气、伤怀。下一次读到看似闲笔的段落，"
+                "你也许会忽然意识到：原来这一处也在说同一件事。"
+            )
+        return (
+            "把哲学概念放回小说情节里看，能帮助你从单纯的'谁喜欢谁、谁害了谁'，"
+            "读出一层关于人生选择和价值冲突的余味。"
+        )
 
     def _compose_next_questions(self, response: dict[str, Any]) -> list[str]:
-        scene = response["matched_scenes"][0]["name"] if response["matched_scenes"] else "这个情节"
-        return [
-            f"{scene}里哪些地方是原文事实，哪些是后来的哲学解释？",
-            "如果换成儒家、道家、佛教视角，结论会有什么不同？",
-            "这个主题还在哪些章节反复出现？",
-        ]
+        concepts = response["concepts"][:2]
+        scene_name = response["matched_scenes"][0]["name"] if response["matched_scenes"] else None
+        questions: list[str] = []
+        if len(concepts) >= 2:
+            questions.append(f"「{concepts[0]['name']}」和「{concepts[1]['name']}」在《红楼梦》里有冲突的时候吗？")
+        elif concepts:
+            questions.append(f"如果换一个角度看「{concepts[0]['name']}」，比如从黛玉而不是宝玉的眼睛，会读出什么不同？")
+        else:
+            questions.append("作者是站在哪一种哲学立场上写这一段的？还是其实他在并置几种声音？")
+        if scene_name:
+            questions.append(f"{scene_name}里，是哪个细节最先让你感到'背后好像有更大的意思'？")
+        else:
+            questions.append("书里有没有哪个看似闲笔的细节，回头看其实在偷偷推进这个主题？")
+        questions.append("如果让今天的读者把这个概念套到自己生活里，最容易误解的是什么？")
+        return questions
 
     def _public_passage(self, scored: ScoredItem) -> dict[str, Any]:
         item = scored.item
