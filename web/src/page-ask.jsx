@@ -56,13 +56,18 @@ function PageAsk({ presetQuestion, onJumpScene, onJumpConcept, onJumpExplain }) 
         setApiAnswer({
           thesis: data.thesis || "",
           interpretation: (data.interpretation || []).map(text => ({ text, cites: [] })),
+          textualEvidence: data.textual_evidence || [],
+          conceptAnalysis: data.concept_analysis || [],
+          reasoning: data.reasoning || [],
+          counterpoint: data.counterpoint || "",
+          conclusion: data.conclusion || "",
           citationNotes: data.citation_notes || [],
           limits: data.limits || data.disclaimer || "",
         });
         setPhase("composing");
       } catch (e) {
         if (!cancelled) {
-          setApiAnswer({ thesis: "请求失败，请检查服务是否正常。", interpretation: [], citationNotes: [], limits: "" });
+          setApiAnswer({ thesis: "请求失败，请检查服务是否正常。", interpretation: [], textualEvidence: [], conceptAnalysis: [], reasoning: [], counterpoint: "", conclusion: "", citationNotes: [], limits: "" });
           setPhase("composing");
         }
       }
@@ -70,15 +75,20 @@ function PageAsk({ presetQuestion, onJumpScene, onJumpConcept, onJumpExplain }) 
     return () => { cancelled = true; };
   }, [fetchKey]);
 
+  const answerData = apiAnswer || DATA.mockAnswer;
+  const reasoningItems = (answerData.reasoning && answerData.reasoning.length)
+    ? answerData.reasoning.map(text => ({ text, cites: [] }))
+    : (answerData.interpretation || []);
+
   // typewriter for thesis once composing
-  const thesisText = (apiAnswer || DATA.mockAnswer).thesis;
+  const thesisText = answerData.thesis;
   const thesisTW = useTypewriter(thesisText, 22, phase === "composing");
 
   // reveal interpretation sentences one by one after thesis done
   React.useEffect(() => {
     if (phase !== "composing" || !thesisTW.done) return;
     let cancelled = false;
-    const total = (apiAnswer || DATA.mockAnswer).interpretation.length;
+    const total = reasoningItems.length;
     let i = 0;
     const tick = () => {
       if (cancelled) return;
@@ -89,7 +99,7 @@ function PageAsk({ presetQuestion, onJumpScene, onJumpConcept, onJumpExplain }) 
     };
     setTimeout(tick, 350);
     return () => { cancelled = true; };
-  }, [thesisTW.done, phase]);
+  }, [thesisTW.done, phase, reasoningItems.length]);
 
   const ask = (q) => {
     setShownSentences([]);
@@ -290,12 +300,38 @@ function PageAsk({ presetQuestion, onJumpScene, onJumpConcept, onJumpExplain }) 
                 {phase === "composing" && !thesisTW.done && <span className="stream-cursor" />}
               </div>
 
-              {/* interpretation */}
+              {/* textual evidence */}
               {(thesisTW.done || phase === "done") && (
                 <>
-                  <Eyebrow num={`${shownSentences.length}/${(apiAnswer || DATA.mockAnswer).interpretation.length}`}>阐释 · interpretation</Eyebrow>
+                  <Eyebrow num={(answerData.textualEvidence || []).length}>文本依据 · evidence</Eyebrow>
+                  <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap: 14, marginBottom: 34 }}>
+                    {(answerData.textualEvidence || []).map((item, i) => (
+                      <div key={i} className="fade-in" style={{ background:"rgba(255,255,255,.48)", border:".5px solid var(--rule)", padding:"14px 16px" }}>
+                        <div style={{ display:"flex", justifyContent:"space-between", gap: 10, alignItems:"baseline", marginBottom: 8 }}>
+                          <strong style={{ fontFamily:"var(--serif)", fontSize: 14.5, fontWeight: 500 }}>{item.title || "文本依据"}</strong>
+                          {item.passage_id && <CiteChip kind="passage" id={item.passage_id} active={activeChip === item.passage_id} onClick={() => setActiveChip(item.passage_id)} />}
+                        </div>
+                        <div style={{ fontSize: 14, lineHeight: 1.75, color:"var(--ink-2)" }}>{item.claim || item.text}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <Eyebrow num={(answerData.conceptAnalysis || []).length}>概念解释 · concepts</Eyebrow>
+                  <div style={{ display:"flex", flexDirection:"column", gap: 10, marginBottom: 34 }}>
+                    {(answerData.conceptAnalysis || []).map((item, i) => (
+                      <div key={i} className="fade-in" style={{ borderLeft:"2px solid var(--celadon-deep)", paddingLeft: 14 }}>
+                        <div style={{ display:"flex", alignItems:"center", gap: 8, marginBottom: 5 }}>
+                          <span style={{ fontFamily:"var(--serif)", fontWeight: 500 }}>{item.name || "概念"}</span>
+                          {item.concept_id && <CiteChip kind="concept" id={item.concept_id} active={activeChip === item.concept_id} onClick={() => setActiveChip(item.concept_id)} />}
+                        </div>
+                        <div style={{ fontSize: 14.5, lineHeight: 1.8, color:"var(--ink-2)" }}>{item.analysis || item.text}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <Eyebrow num={`${shownSentences.length}/${reasoningItems.length}`}>推理展开 · reasoning</Eyebrow>
                   <ol style={{ paddingLeft: 0, listStyle: "none", margin: "0 0 36px" }}>
-                    {(apiAnswer || DATA.mockAnswer).interpretation.map((sent, i) => shownSentences.includes(i) && (
+                    {reasoningItems.map((sent, i) => shownSentences.includes(i) && (
                       <li key={i} className="fade-in answer__sent" style={{ display:"flex", gap: 16, padding: "10px 0", borderBottom: ".5px solid var(--rule)", fontSize: 16, lineHeight: 1.85 }}>
                         <span style={{ fontFamily: "var(--mono)", color: "var(--cinnabar)", fontSize: 11, paddingTop: 6, minWidth: 18 }}>
                           {String(i+1).padStart(2,"0")}
@@ -303,7 +339,7 @@ function PageAsk({ presetQuestion, onJumpScene, onJumpConcept, onJumpExplain }) 
                         <span style={{ flex: 1 }}>
                           {sent.text}。
                           <span style={{ display:"inline-flex", gap: 6, marginLeft: 8, verticalAlign: "middle" }}>
-                            {sent.cites.map((c, j) => (
+                            {(sent.cites || []).map((c, j) => (
                               <CiteChip key={j} kind={c.kind} id={c.id}
                                 active={activeChip === c.id}
                                 onClick={() => {
@@ -316,7 +352,7 @@ function PageAsk({ presetQuestion, onJumpScene, onJumpConcept, onJumpExplain }) 
                         </span>
                       </li>
                     ))}
-                    {phase === "composing" && shownSentences.length < (apiAnswer || DATA.mockAnswer).interpretation.length && (
+                    {phase === "composing" && shownSentences.length < reasoningItems.length && (
                       <li style={{ padding: "12px 0", color: "var(--ink-faint)", fontFamily: "var(--mono)", fontSize: 11.5, letterSpacing: ".06em" }}>
                         <Dots /> &nbsp; 继续生成中
                       </li>
@@ -325,19 +361,29 @@ function PageAsk({ presetQuestion, onJumpScene, onJumpConcept, onJumpExplain }) 
                 </>
               )}
 
-              {/* citation notes + limits */}
+              {/* counterpoint + conclusion + notes */}
               {phase === "done" && (
                 <div className="fade-in" style={{ display:"grid", gridTemplateColumns: "1fr 1fr", gap: 28 }}>
+                  <div style={{ gridColumn: "1 / -1" }}>
+                    <Eyebrow>复杂性 · counterpoint</Eyebrow>
+                    <p style={{ margin: "0 0 22px", fontSize: 15.5, lineHeight: 1.85, color: "var(--ink-2)" }}>
+                      {answerData.counterpoint || ""}
+                    </p>
+                    <Eyebrow>结论 · conclusion</Eyebrow>
+                    <p style={{ margin: "0 0 28px", fontSize: 17, lineHeight: 1.75, fontWeight: 500, color: "var(--ink)" }}>
+                      {answerData.conclusion || thesisText}
+                    </p>
+                  </div>
                   <div>
                     <Eyebrow>证据脚注 · notes</Eyebrow>
                     <ul style={{ margin: 0, paddingLeft: 18, fontSize: 14, lineHeight: 1.8, color: "var(--ink-2)" }}>
-                      {(apiAnswer || DATA.mockAnswer).citationNotes.map((n,i) => <li key={i}>{n}</li>)}
+                      {(answerData.citationNotes || []).map((n,i) => <li key={i}>{n}</li>)}
                     </ul>
                   </div>
                   <div>
                     <Eyebrow>边界 · limits</Eyebrow>
                     <p style={{ margin: 0, fontSize: 14, lineHeight: 1.8, color: "var(--ink-2)", fontStyle:"italic" }}>
-                      {(apiAnswer || DATA.mockAnswer).limits}
+                      {answerData.limits}
                     </p>
                   </div>
                 </div>

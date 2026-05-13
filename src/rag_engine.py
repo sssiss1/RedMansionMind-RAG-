@@ -201,6 +201,11 @@ class RedMansionRAG:
             "evidence": [self._public_passage(item) for item in passages],
             "concepts": [self._public_concept(item) for item in concepts],
             "interpretation": self._compose_interpretation(perspective, passages, concepts),
+            "textual_evidence": self._compose_textual_evidence(passages),
+            "concept_analysis": self._compose_concept_analysis(concepts),
+            "reasoning": self._compose_reasoning(perspective, passages, concepts),
+            "counterpoint": self._compose_counterpoint(perspective, passages, concepts),
+            "conclusion": self._compose_conclusion(question, passages, concepts),
             "related_characters": characters,
             "related_themes": self._related_themes(passages, concepts),
             "matched_scenes": [self._public_scene(scene) for scene in matched_scenes],
@@ -252,6 +257,16 @@ class RedMansionRAG:
             existing = [c for c in response["concepts"] if c.get("id") != pinned["id"]]
             response["concepts"] = [pinned_public] + existing[:2]
             response["pinned_concept_id"] = pinned["id"]
+        elif response["matched_scenes"]:
+            scene_keywords = [normalize_for_search(term) for scene in response["matched_scenes"] for term in scene.get("keywords", [])]
+            response["concepts"] = sorted(
+                response["concepts"],
+                key=lambda concept: (
+                    scene_keywords.index(normalize_for_search(concept.get("name", "")))
+                    if normalize_for_search(concept.get("name", "")) in scene_keywords
+                    else len(scene_keywords)
+                ),
+            )
 
         response["mode"] = "explain"
         response["explain_title"] = self._compose_explain_title(response)
@@ -321,6 +336,7 @@ class RedMansionRAG:
                     score += 1.5 + math.log1p(count)
                     matched.append(term)
             score += self._phrase_boost(query_text, item)
+            score += self._character_boost(query_text, item)
             score += self._scene_boost(item, matched_scenes or [])
             score += self._concept_scene_boost(item, matched_scenes or [])
             if perspective and perspective != "综合":
@@ -360,6 +376,22 @@ class RedMansionRAG:
             if phrase in haystack:
                 boost += min(len(phrase), 8) * 2.0
         return boost
+
+    def _character_boost(self, query_text: str, item: dict[str, Any]) -> float:
+        if "chapter" not in item:
+            return 0.0
+        query = normalize_for_search(query_text)
+        mentioned = [name for name in self.characters if normalize_for_search(name) in query]
+        if not mentioned:
+            return 0.0
+
+        haystack = normalize_for_search(self._field_text(item, ["text", "title", "characters"]))
+        for name in mentioned:
+            normalized_name = normalize_for_search(name)
+            short_name = normalized_name[-2:]
+            if normalized_name in haystack or short_name in haystack:
+                return 22.0
+        return -18.0
 
     def _matched_scenes(self, question: str) -> list[dict[str, Any]]:
         normalized_question = normalize_for_search(question)
@@ -489,6 +521,66 @@ class RedMansionRAG:
             lines.append("综合视角适合同时观察礼法秩序、真性情和空幻无常之间的互相拉扯。")
         return lines
 
+    def _compose_textual_evidence(self, passages: list[ScoredItem]) -> list[dict[str, str]]:
+        evidence = []
+        for scored in passages[:3]:
+            passage = scored.item
+            chars = "、".join(passage.get("characters", [])[:3]) or "相关人物"
+            themes = "、".join(passage.get("themes", [])[:3]) or "人物关系"
+            evidence.append({
+                "passage_id": passage["id"],
+                "title": f"第{passage['chapter']}回 · {passage['title']}",
+                "claim": f"这段材料把{chars}放进{themes}的关系网中，适合作为判断人物处境和价值冲突的文本依据。",
+            })
+        return evidence
+
+    def _compose_concept_analysis(self, concepts: list[ScoredItem]) -> list[dict[str, str]]:
+        analysis = []
+        for scored in concepts[:3]:
+            concept = scored.item
+            definition = concept.get("definition", "").rstrip("。.")
+            analysis.append({
+                "concept_id": concept["id"],
+                "name": concept["name"],
+                "analysis": f"{concept['tradition']}的“{concept['name']}”在这里不是孤立术语，而是一种读法：{definition}。它帮助把人物行为从单纯情节推进，转化为可讨论的价值判断。",
+            })
+        return analysis
+
+    def _compose_reasoning(self, perspective: str, passages: list[ScoredItem], concepts: list[ScoredItem]) -> list[str]:
+        if not passages:
+            return ["当前没有足够 passage 支撑完整推理，因此只能给出谨慎判断。"]
+
+        lead = passages[0].item
+        concept_names = "、".join(c.item["name"] for c in concepts[:2]) or "相关概念"
+        themes = "、".join(lead.get("themes", [])[:3]) or "人物处境"
+        lines = [
+            f"先看文本事实：检索结果首先把问题引到《{lead['title']}》这一组材料中，说明问题的重心不是抽象概念本身，而是{themes}如何在具体场景里发生。",
+            f"再看概念作用：{concept_names}提供的是解释路径，而不是替代原文的标签。它们要回答的是：为什么人物会这样选择、忍让、执着或转身。",
+        ]
+        if perspective == "儒家":
+            lines.append("从儒家角度，重点应放在礼、人情和家族责任如何塑造行动边界；人物是否成熟，往往体现在能否读懂这些边界。")
+        elif perspective == "佛教":
+            lines.append("从佛教角度，重点应放在执着如何形成，以及人物是否通过盛衰、聚散和幻灭看见不可执的一面。")
+        elif perspective == "道家":
+            lines.append("从道家角度，重点应放在人物是否保有自然本真，或者是否被名分、功利和外在秩序牵引。")
+        else:
+            lines.append("综合来看，较完整的阐释需要同时处理文本事实、伦理秩序和哲学意味，避免只把人物压成单一标签。")
+        return lines
+
+    def _compose_counterpoint(self, perspective: str, passages: list[ScoredItem], concepts: list[ScoredItem]) -> str:
+        if not passages:
+            return "由于证据不足，暂时不宜提出强判断。"
+        return (
+            "需要保留复杂性：这些概念能帮助理解人物，但不能替代原文。"
+            "同一人物或场景往往同时包含现实策略、情感压力和哲学象征；如果只取其中一层，解释就会变薄。"
+        )
+
+    def _compose_conclusion(self, question: str, passages: list[ScoredItem], concepts: list[ScoredItem]) -> str:
+        concept_names = "、".join(c.item["name"] for c in concepts[:2])
+        if concept_names:
+            return f"因此，这个问题最稳妥的读法，是以原文证据为底，把{concept_names}当作解释人物处境的工具，而不是把它们当作预设结论。"
+        return "因此，这个问题应先回到原文场景，再从人物关系和行动后果中提炼解释。"
+
     def _apply_llm_answer(self, response: dict[str, Any]) -> dict[str, Any]:
         if not is_configured():
             response["llm_error"] = "未设置 OPENAI_API_KEY，当前显示本地模板回答。"
@@ -531,6 +623,11 @@ class RedMansionRAG:
             response["interpretation"] = [str(item) for item in interpretation if str(item).strip()]
         elif isinstance(interpretation, str):
             response["interpretation"] = [interpretation]
+        response["textual_evidence"] = self._as_dict_list(llm_answer.get("textual_evidence")) or response["textual_evidence"]
+        response["concept_analysis"] = self._as_dict_list(llm_answer.get("concept_analysis")) or response["concept_analysis"]
+        response["reasoning"] = self._as_list(llm_answer.get("reasoning")) or response["reasoning"]
+        response["counterpoint"] = str(llm_answer.get("counterpoint") or response["counterpoint"])
+        response["conclusion"] = str(llm_answer.get("conclusion") or response["conclusion"])
         response["llm_enabled"] = True
         response["llm_model"] = llm_answer.get("_llm_model", "")
         response["limits"] = str(llm_answer.get("limits", ""))
@@ -592,13 +689,29 @@ class RedMansionRAG:
             return [value]
         return []
 
+    def _as_dict_list(self, value: Any) -> list[dict[str, str]]:
+        if not isinstance(value, list):
+            return []
+        items = []
+        for item in value:
+            if isinstance(item, dict):
+                items.append({str(key): str(val) for key, val in item.items() if str(val).strip()})
+            elif str(item).strip():
+                items.append({"text": str(item)})
+        return items
+
     def _llm_system_prompt(self) -> str:
         return """你是一个严谨的《红楼梦》与中国哲学研究助手。
 只能根据用户提供的 passages 和 concepts 回答，不要编造未提供的原文、章节或学术来源。
 如果证据不足，要明确说明限制。
 请输出 JSON object，字段必须包括：
 - thesis: 一句话核心观点
-- interpretation: 字符串数组，3-5条，每条都要结合 passage id 或 concept id
+- interpretation: 字符串数组，3-5条，每条都要结合 passage id 或 concept id，用于兼容旧界面
+- textual_evidence: 对象数组，2-4条；每条包括 title、passage_id、claim，说明这段原文支撑了什么判断
+- concept_analysis: 对象数组，2-3条；每条包括 name、concept_id、analysis，说明概念如何解释文本而不是替代文本
+- reasoning: 字符串数组，3-5条；按“文本事实 -> 概念解释 -> 人物/主题判断”的顺序展开完整推理
+- counterpoint: 一段话，说明这种解释的复杂性、反面理解或容易误读之处
+- conclusion: 一段收束性结论，直接回答用户问题
 - citation_notes: 数组，说明关键观点分别依据哪些 passage id / concept id
 - limits: 说明哪些地方属于解释性判断，而非原文事实
 回答语言使用简体中文。"""
@@ -640,20 +753,20 @@ class RedMansionRAG:
 
     def _compose_plain_explanation(self, response: dict[str, Any]) -> list[str]:
         lines = []
-        passages = response["evidence"][:3]
-        for index, concept in enumerate(response["concepts"][:3]):
-            definition = concept["definition"].rstrip("。.")
-            passage = passages[index % len(passages)] if passages else None
-            if passage:
-                scene = self._passage_scene_sentence(passage)
+        concepts = response["concepts"][:3]
+        concept_names = "、".join(concept["name"] for concept in concepts) or "这些概念"
+        concept_defs = "；".join(f"{concept['name']}：{concept['definition'].rstrip('。.')}" for concept in concepts[:2])
+        for passage in response["evidence"][:3]:
+            scene = self._passage_scene_sentence(passage)
+            themes = "、".join(passage.get("themes", [])[:2]) or "人物关系"
+            if concept_defs:
                 lines.append(
-                    f"{scene}「{concept['name']}」不是给这段文字贴标签，而是提醒我们看见：{definition}。"
-                    "也就是说，概念要解释人物为什么这样进退、忍让或执着，不能离开这块材料空讲。"
+                    f"{scene}先别急着给它套术语：这一块真正要解释的是{themes}中的进退分寸。"
+                    f"{concept_names}在这里的作用，是把人物的选择和关系压力连起来看；{concept_defs}。"
                 )
             else:
                 lines.append(
-                    f"先把「{concept['name']}」放慢看：{definition}。但当前材料不足，"
-                    "所以更稳妥的读法是先回到人物处境、动作和关系，再判断它是否真的能解释这段文字。"
+                    f"{scene}先看这一块材料里谁在行动、谁在承受压力，再判断它对应的是伦理分寸、情感执着，还是命运转折。"
                 )
         if not lines:
             lines.append("这个问题没有现成的术语对应，可以先从人物处境、情节变化和价值冲突切入，慢慢摸到背后的思考方式。")
@@ -676,17 +789,17 @@ class RedMansionRAG:
         chars = "、".join(passage.get("characters", [])[:2])
         who = chars if chars else "书中人物"
         text = (passage.get("text") or "").strip().replace("\n", "")
-        snippet = text[:44] + "…" if len(text) > 44 else text
-        return f"第{passage['chapter']}回里，{who}这一大段先给出的是“{snippet}”这样的处境。"
+        snippet = text[:34] + "…" if len(text) > 34 else text
+        return f"第{passage['chapter']}回里，{who}这一大段先给出的是“{snippet}”这类处境。"
 
     def _compose_why_it_matters(self, response: dict[str, Any]) -> str:
         concept_names = "、".join(concept["name"] for concept in response["concepts"][:3])
+        passage_ids = "、".join(passage["id"] for passage in response["evidence"][:3])
         if concept_names:
             return (
-                f"理解了「{concept_names}」之后再读《红楼梦》，"
-                "你会发现作者并不是单纯在写一个家族的兴衰故事——他在用极细的笔触，"
-                "把这些哲学命题铺陈成日常的吃饭、做诗、闹气、伤怀。下一次读到看似闲笔的段落，"
-                "你也许会忽然意识到：原来这一处也在说同一件事。"
+                f"理解「{concept_names}」不是为了把小说压成概念表，而是为了回到{passage_ids or '这些段落'}："
+                "看人物怎样在一句话、一次让步、一次规劝里处理关系压力。这样读，概念会变成照明工具，"
+                "帮助你看清大段原文内部的动作和情绪，而不是漂在原文旁边的解释。"
             )
         return (
             "把哲学概念放回小说情节里看，能帮助你从单纯的'谁喜欢谁、谁害了谁'，"
