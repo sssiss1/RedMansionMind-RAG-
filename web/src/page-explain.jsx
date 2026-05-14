@@ -93,6 +93,33 @@ function PageExplain() {
       {result && !loading && (
         <div style={{ display:"grid", gridTemplateColumns: "1.4fr 1fr", gap: 56 }}>
           <div>
+            {/* LLM status banner */}
+            {(() => {
+              if (result.llm_error) {
+                return (
+                  <div style={{ marginBottom: 20, padding: "10px 14px", border: ".5px solid var(--cinnabar)", background: "rgba(185,75,60,.06)", fontFamily: "var(--mono)", fontSize: 11.5, color: "var(--cinnabar)", lineHeight: 1.6 }}>
+                    LLM 调用失败，下面是本地模板兜底输出。<br/>
+                    <span style={{ color: "var(--ink-mute)" }}>{result.llm_error}</span>
+                  </div>
+                );
+              }
+              if (llmOn && !result.llm_enabled) {
+                return (
+                  <div style={{ marginBottom: 20, padding: "10px 14px", border: ".5px dashed var(--rule-strong)", fontFamily: "var(--mono)", fontSize: 11.5, color: "var(--ink-mute)" }}>
+                    LLM 未启用（OPENAI_API_KEY 未配置），当前为本地模板输出。
+                  </div>
+                );
+              }
+              if (result.llm_enabled) {
+                return (
+                  <div style={{ marginBottom: 20, fontFamily: "var(--mono)", fontSize: 10.5, color: "var(--celadon-deep)", letterSpacing: ".08em" }}>
+                    ✓ LLM · {result.llm_model || "deepseek-chat"}
+                  </div>
+                );
+              }
+              return null;
+            })()}
+
             <Eyebrow>title</Eyebrow>
             <h2 className="h-section" style={{ fontSize: 32, marginBottom: 28 }}>
               {result.explain_title || result.question}

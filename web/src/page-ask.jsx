@@ -63,6 +63,9 @@ function PageAsk({ presetQuestion, onJumpScene, onJumpConcept, onJumpExplain }) 
           conclusion: data.conclusion || "",
           citationNotes: data.citation_notes || [],
           limits: data.limits || data.disclaimer || "",
+          llmEnabled: !!data.llm_enabled,
+          llmError: data.llm_error || "",
+          llmModel: data.llm_model || "",
         });
         setPhase("composing");
       } catch (e) {
@@ -293,6 +296,33 @@ function PageAsk({ presetQuestion, onJumpScene, onJumpConcept, onJumpExplain }) 
           <div style={{ display:"grid", gridTemplateColumns: "minmax(0, 1fr) 320px", gap: 56 }}>
             {/* main answer column */}
             <div className="answer">
+              {/* LLM status banner (only show after phase done so it doesn't shift the typewriter) */}
+              {(phase === "composing" || phase === "done") && apiAnswer && (() => {
+                if (apiAnswer.llmError) {
+                  return (
+                    <div style={{ marginBottom: 20, padding: "10px 14px", border: ".5px solid var(--cinnabar)", background: "rgba(185,75,60,.06)", fontFamily: "var(--mono)", fontSize: 11.5, color: "var(--cinnabar)", lineHeight: 1.6 }}>
+                      LLM 调用失败，下面是本地模板兜底输出。<br/>
+                      <span style={{ color: "var(--ink-mute)" }}>{apiAnswer.llmError}</span>
+                    </div>
+                  );
+                }
+                if (llmOn && !apiAnswer.llmEnabled) {
+                  return (
+                    <div style={{ marginBottom: 20, padding: "10px 14px", border: ".5px dashed var(--rule-strong)", fontFamily: "var(--mono)", fontSize: 11.5, color: "var(--ink-mute)" }}>
+                      LLM 未启用（OPENAI_API_KEY 未配置），当前为本地模板输出。
+                    </div>
+                  );
+                }
+                if (apiAnswer.llmEnabled) {
+                  return (
+                    <div style={{ marginBottom: 20, fontFamily: "var(--mono)", fontSize: 10.5, color: "var(--celadon-deep)", letterSpacing: ".08em" }}>
+                      ✓ LLM · {apiAnswer.llmModel || "deepseek-chat"}
+                    </div>
+                  );
+                }
+                return null;
+              })()}
+
               {/* thesis */}
               <Eyebrow>论点 · thesis</Eyebrow>
               <div style={{ fontFamily: "var(--serif)", fontSize: 22, lineHeight: 1.55, fontWeight: 500, marginBottom: 36, borderLeft: "2px solid var(--cinnabar)", paddingLeft: 18 }}>
